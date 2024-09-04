@@ -2,24 +2,46 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: <a href='#'>Physicist & Developer, Artificial Intelligence & Machine Learning</a>
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>Working from Turin, Italy</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hi, I'm Luca and I am Physicist and Freelancer.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+- ⚛️ **Theoretical Physics Master's Student** at the University of Turin, Italy
+- 🌱 **Developer and Consultant** specializing in Machine Learning and AI applications
+- 🔬 **Co-founder** of the Machine Learning Journal Club
+- 🛒 **Former Co-founder** of the Clevi startup
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+- 🔭 Passionate about exploring the intersection of **physics** and **artificial intelligence**
+- 🧩 Experienced in developing **complex algorithms** and **data-driven solutions**
+- 🚀 Always looking for **collaborative projects** and new **challenges**
+- 📚 Committed to **lifelong learning** and sharing knowledge with the community
+
+---
+
+## For Business
+
+### Artificial Intelligence
+I have engineered a range of innovative products leveraging Artificial Intelligence. Examples of these ventures are showcased on the [projects page](/projects/#work). Whether you require implementation of pre-existing AI solutions or bespoke development tailored to your specific needs, I offer comprehensive expertise to drive your AI initiatives forward.
+
+### Data Analysis
+My proficiency in data analysis enables the extraction of actionable insights from complex datasets. I specialize in conducting thorough statistical analyses and constructing sophisticated mathematical models to uncover hidden patterns and inform strategic decisions.
+
+### Machine Learning
+Machine Learning empowers organizations to harness predictive capabilities and enhance decision-making processes. I provide expertise in deploying machine learning models in production environments, ensuring their scalability, robustness, and seamless integration into existing systems.
+
+---
+
+## Academical Work
+Take a look at the [publications page](/publications/)
