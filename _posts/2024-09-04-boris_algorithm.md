@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Simulating the motion of relativistic charged particles in external EM fields
+title: "The Boris Algorithm: simulating relativistic particles in external EM fields"
 date: 2024-09-04 11:14:00+0100
-description: A numerical study of the motion of relativistic charged particles using the Boris algorithm
+description:  The Boris algorithm allows a very accurate simulation of the motion of electrically charged particles in the rpesence of external EM fields.
 tags: physics simulation code boris algorithm
 categories: research
 giscus_comments: false
