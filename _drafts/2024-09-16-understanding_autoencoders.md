@@ -15,25 +15,38 @@ toc:
   sidebar: left
 ---
 
-# Autoencoders: Architecture, Math, and Applications
 
 Autoencoders are a class of neural networks used for unsupervised learning. Their primary objective is to learn efficient representations of data by compressing inputs into a latent space (encoding) and then reconstructing them back to the original data (decoding). They serve as fundamental components in tasks like dimensionality reduction, denoising, and generative modeling. In this post, we will dissect the architecture and mathematics behind autoencoders, from the simplest one-layer linear autoencoder to more complex variants.
 
-## The Basic Autoencoder Model
+## Autoencoders from an intuitive geometrical perspective
 
 An autoencoder consists of two core components:
 
-- **Encoder**: Maps an input vector $$ \mathbf{x} \in \mathbb{R}^n $$ into a latent space $$ \mathbf{z} \in \mathbb{R}^m $$ where $$ m < n $$
+- **Encoder** $$E$$: Maps an input vector $$ \mathbf{x} \in \mathbb{R}^n $$ into a latent space $$ \mathbf{z} \in \mathbb{R}^m $$ where $$ m < n $$
 - **Decoder**: Reconstructs the input by mapping the latent representation $$ \mathbf{z} $$ back to the input space to produce $$ \hat{\mathbf{x} } \in \mathbb{R}^n $$
 
-The encoder's main objective is therefore to reduce the dimensionality of the input data. It effectively works as a compressor engine: its output is a compressed representation if the original data's informations. It is clear that the larger the embedding dimension $$m$$ is, more the informations that can fit in it are. In the limiting case where the embedding's dimension is equal to original space's dimension $$m=n$$, the model can achieve perfect score (i.e. original data recovery) by simply learning the identity operation. For practical purposes, we are therefore interested in finding the correct balancing between recovery capabilities and compression ratio $$\eta = \frac{m}{n}$$ (also called compression efficiency).
+### The Encoder as a mapping between vectors
+
+The encoder's main objective is therefore to reduce the dimensionality of the input data. It effectively works as a compressor engine: its output is a compressed representation if the original data's informations. It is clear that the larger the embedding dimension $$m$$ is, more the informations that can fit in it are. In the limiting case where the embedding's dimension is greater than or equal to the original space's dimension $$m>=n$$, the model can achieve perfect score (i.e. original data recovery) by simply learning the identity operation <d-footnote>However, this does not necessarily mean that it cannot extract useful informations</d-footnote>. For practical purposes, we are therefore interested in finding the correct balancing between recovery capabilities and compression ratio $$\eta = \frac{m}{n}$$ (also called compression efficiency).
 
 It is clear that, in order to achieve a small $$\eta$$, the model will need to assign only the most important informations to the available degree of freedom. In other words, the model will need to find a way to extract meaningful "descriptive variables" **and** their place inside the latent space. 
 
-Let's recap what the encoder does: given an input point $$\mathbf{x}$$ which lives in $$\mathbb{R}^n$$, it will give a "representation" of that point in the (smaller) space $$\mathbb{R}^m$$. It is therefore clear that the encoder is a mapping between the two spaces, just like a scalar field maps a point of the space into a single value. 
-However, we are usually not sampling uniformly from the original space $$\mathbb{R}^n$$: in that case there are no "features" to be extracted, since **all** the possible features are present inside our dataset and the most efficient representation will be a "mean" of all the possible features.
-Our data will likely contain structures: while a correct definition of what a structure is lies beyond the scope of this post, it can be intuitively understood as the presence of correlations between the degree of freedom of our problem. 
+Since the encoder takes as input a  datapoint $$\mathbf{x}$$ which lives in $$\mathbb{R}^n$$ to give back a "representation" of that point in the (smaller) space $$\mathbb{R}^m$$, the encoder is by definition a mapping between the two spaces, just like a scalar field maps a point of the space into a single value. Symbolically:
+\begin{equation}
+E: \mathbb{R}^n \maps \mathbb{R}^m \\
+E(\mathbf{x}) \to \mathbf{z}
+\end{equation}
 
+Following this definition, the encoder $$E$$ is just a generic mapping between vectors defined in two separate spaces with dimensionality $$n$$ and $$m$$. Those are in some sense the most vast spaces possible given $$n$$ or $$m$$ variables and threfore, because they contain any possible combinations of a n-tuple of real numbers.
+However, when we collect datapoints from a phenomena, we are usually not sampling uniformly from the original space $$\mathbb{R}^n$$: we are not intereseted in all possible combinations of numbers. Think about a grayscale, 8bit (0-255), 10px by 10px image: it would be very boring having a dataset which consist of all the possible combinations of pixel values <d-footnote>Since we have $$2^8=256$$ possible values for each pixel, and since we have 100 pixels, this dataset consists of $$(2^8)^100 = 2^800 \about 10^241$$ images!</d-footnote>. In that case there are no "features" to be extracted, since **all** the possible features are present inside our dataset. What we would probably be interested in are the images that somehow *represent something*. Thos images, while being strictly speaking one different from the other, are all "instances of something". For example: some images can be photos of handwritten digits, or letters, or low resolution images of astronomical objects. Whatever they represent, they will contain **structures**: while a formal definition of what a structure is lies beyond the scope of this post, it can be intuitively understood as the presence of correlations between the degree of freedom of our problem, as outlined in the next section.
+
+### Degree(s) of freedom (dof(s))
+
+In our discussion, a **degree of freedom** (dof) is an independent variable driving the behaviour of a system. For an unconstrained particle moving in free space, we have 6 dof: 3 positions (x,y,z components relative to a cartesin coordinate system, for example) and 3 momenta (the speed of the particle along the directions of that reference system). To completely determinate the *dynamical* state of the particle we therefore need 6 independet variables. We cannot fully dedscribe our system without using *at least* 6 real numbers. We can of course use more numbers, but we are not adding any information by doing so. We are simply restating the same things again and again, in a different way. In other words, these novel numbers are *combinations* of the **intrinsic** dofs.
+
+This is an important point. Imagine creating a dataset about the dynamical state of a small probe in free space. We have 1000 datapoints, correspondi to the probe's state in 1000 different time instants. Each datapoint is a set of 60 observations, given by different sensors aboard. In this dataset, our datapoint has 60 **observed** dofs. It is cleary much more than the theoretically necessary 6 intrinsic dofs. We have redudancy. But this is not necessarily an bad thing. In fact, data redudancy is often necessary to overcome the (usually) unavoidable presence of **noise**. the fact that we have 60 measurements of the underlying 6 physical quantities allows us to try to extrapolate a better approximation of the real quantity we are interested in.
+
+This is necessary also because we usually **do not know what the intrisic dofs are**. If we have to work with extremely complex data, like images, we do not know what are the "dynamical variables" that drive an image. It is even possible, like for images, that those dofs are not well defined at all, rendering the task of creating an explicit mathematical formulation quite difficulta <d-footnote>This is a way of explaining why, for example, creating an hadwritten digit recognition system without using machine learning can be very difficult</d-footnote>
 One thing that should be kept clear is that we do not know what are the "intrinsical" dof of our problem, nor the "intrinsical" relations between them. Our data is a sampling of that dofs and of their relations. Our data is never complete in the sense that it can be used to decribe exactly the underlaying behaviour of the data source. What we have access to is noisy sampling of the task manifold. The task manifold can be tought as the surface described by the function that map each underlying dof to the observed dof.
 Let us summarize all of that:
 
