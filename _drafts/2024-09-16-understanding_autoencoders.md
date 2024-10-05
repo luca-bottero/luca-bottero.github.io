@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: distill
 title: "Understanding Autoencoders: Intuition, Mathematics, and Code"
 date: 2024-09-06 11:14:00+0100
 description: "Unraveling the complexities of data representation through autoencoders: A journey from raw input to meaningful embeddings"
@@ -15,11 +15,9 @@ toc:
   sidebar: left
 ---
 
-# Autoencoders: Architecture, Math, and Applications
-
 Autoencoders are a class of neural networks used for unsupervised learning. Their primary objective is to learn efficient representations of data by compressing inputs into a latent space (encoding) and then reconstructing them back to the original data (decoding). They serve as fundamental components in tasks like dimensionality reduction, denoising, and generative modeling. In this post, we will dissect the architecture and mathematics behind autoencoders, from the simplest one-layer linear autoencoder to more complex variants.
 
-## The Basic Autoencoder Model
+## Building AEs intuition from geometry
 
 An autoencoder consists of two core components:
 
@@ -28,25 +26,35 @@ An autoencoder consists of two core components:
 
 The encoder's main objective is therefore to reduce the dimensionality of the input data. It effectively works as a compressor engine: its output is a compressed representation if the original data's informations. It is clear that the larger the embedding dimension $$m$$ is, more the informations that can fit in it are. In the limiting case where the embedding's dimension is equal to original space's dimension $$m=n$$, the model can achieve perfect score (i.e. original data recovery) by simply learning the identity operation. For practical purposes, we are therefore interested in finding the correct balancing between recovery capabilities and compression ratio $$\eta = \frac{m}{n}$$ (also called compression efficiency).
 
-It is clear that, in order to achieve a small $$\eta$$, the model will need to assign only the most important informations to the available degree of freedom. In other words, the model will need to find a way to extract meaningful "descriptive variables" **and** their place inside the latent space. 
+Of course the AE will need to assign only the most important informations to the available degree of freedom. In other words, the model will need to find a way to extract meaningful "descriptive variables" **and** their place inside the latent space. 
 
-Let's recap what the encoder does: given an input point $$\mathbf{x}$$ which lives in $$\mathbb{R}^n$$, it will give a "representation" of that point in the (smaller) space $$\mathbb{R}^m$$. It is therefore clear that the encoder is a mapping between the two spaces, just like a scalar field maps a point of the space into a single value. 
-However, we are usually not sampling uniformly from the original space $$\mathbb{R}^n$$: in that case there are no "features" to be extracted, since **all** the possible features are present inside our dataset and the most efficient representation will be a "mean" of all the possible features.
-Our data will likely contain structures: while a correct definition of what a structure is lies beyond the scope of this post, it can be intuitively understood as the presence of correlations between the degree of freedom of our problem. 
+The encoder, given an input point $$\mathbf{x}$$ which lives in $$\mathbb{R}^n$$, will give a "representation" of that point in the (smaller) space $$\mathbb{R}^m$$. It is therefore clear that the encoder is a mapping between the two spaces, just like a scalar field maps a point of the space into a single value. 
+However, we are usually not sampling uniformly from the original space $$\mathbb{R}^n$$: in that case there are no "features" to be extracted, since **all** the possible combinations are present inside our dataset and the most efficient representation each datapoint will simply be itself.<d-footnote>I do not mean that we cannot in principle compress each datapoint separately: that would always be possible. I mean that there is no optimal way of doing a "conceptual" compression of the whole dataset, since it represent all possible datapoints.</d-footnote>
 
-One thing that should be kept clear is that we do not know what are the "intrinsical" dof of our problem, nor the "intrinsical" relations between them. Our data is a sampling of that dofs and of their relations. Our data is never complete in the sense that it can be used to decribe exactly the underlaying behaviour of the data source. What we have access to is noisy sampling of the task manifold. The task manifold can be tought as the surface described by the function that map each underlying dof to the observed dof.
+A better way of expressing this concept is to simply state that our datapoints are not randomly distributed in $$\mathbb{R}^n$$, but instead they occupy a *subspace* of it. We can be even more restrictive and claim that our data lie on a manifold, since we expect that the dofs interact in complex ways to create the our datapoints. We call this manifold the **observed manifold** $$\mathcal{M}_i$$ of our data. Therefore we have now that
+\begin{equation}
+\mathbf{x} \in \mathcal{M}_o \subset \mathbb{R}^n
+\end{equation}
+
+One thing that should be kept clear is that we do not know what are the "intrinsical" dof of our problem, nor the "intrinsical" relations between them: we do not have direct access to the **intrinsic manifold**. This is the exact same thing of saying that we do not know the positions and velocities of all the particles inside a volume of gas. Our data is a sampling of an (unknow) function of those (unknown) dofs, that is to say a noisy sampling of the intrinsic manifold.
+It appears clear that, with the exception of drastically simplified situations, the intrisic manifold is mathematically and computationally intractable. This is not unusual in physics: it is exactly equivalent to what happens in statistical mechanics. It is impossible (and probably not useful) to directly manipulate all the phase space of (for example) a non-interacting classical gas. However, we know that we can describe a lot of the physical properties of this system by using a handful of variables like temperature, pression and volume. We can perform a mapping from a space with dimension of order exponential in particle number to a space of dimension just 3. We can *integrate out* redundant informations from the system.
+
+Usually we are not concerned about $$\mathcal{M}_i$$, since for many practical purpose it can in principle be so extremely complex that its modeling is useless (think about what the intrinsic dofs of 1080p photos can be). We also expect that the same practical purposes can be solved by leveraging a much smaller number of descriptive dofs, exactly like in statistical mechanics. This is exactly the work of the encoder: it maps a point of the observed manifold to a point of the **latent manifold** $$\mathcal{M}_l$$. 
+
 Let us summarize all of that:
-
 | Concept | Description | Example |
 |-|-|-|
-| Observed Degree of Freedom (o-dof) | The measured variables that constitutes the values of a data point | Measured Temperature, moisture level, precipitations |
+| Observed Degree of Freedom (o-dof) | The measured variables that constitutes the values of a data point | Metereological variables collected by a some stations at a given time |
 | Observed Manifold | The set of all observations together with their observed, noisy relationships | All data collected in a given time period |
-| Intrinsic Degree of Freedom (i-dof) | The real indipendent variables that drives the system's behaviour | Weather variables, instrument's inner working |
-| Intrinsic Manifold | The set of all possible states allowed by the system | All possible weather conditions and associated instrumental responses |
+| Latent Degree of Freedom (l-dof) | A minimal set of varibles capable of describing sufficiently well a datapoint | Mean temperature, pressure and moisture level |
+| Latent Manifold | The manifold created acting with the encoder on each point of the observed manifold | All accessible values of mean temperature, pressure and moisture |
+| Intrinsic Degree of Freedom (i-dof) | The real indipendent variables that drives the system's behaviour | Those of the Earth's atmosphere (and possibly more) |
+| Intrinsic Manifold | The set of all possible states allowed by the system | All possible configurations of Earth's atmosphere |
 
-It appears clear that, with the exception of drastically simplified situations, the intrisic manifold is mathematically and computationally intractable. This is not unusual in physics: it is exactly equivalent to what happens in statistical mechanics. It is impossible (and probably not useful) to directly manipulate all the phase space of (for example) a non-interacting classical gas. However, we know that we can describe a lot of the physical properties of this system by using a handful of variables like temperature, pression and volume. We can perform a mapping from a space with dimension of order exponential in particle number to a space of dimension just 3. We can *integrate out* redundant informations from the system and reduce its observed dofs.
+
 
 The encoder, as we have just seen, is a mapping between manifolds. We therefore have two mappings at the moment: Intrinsic $$\to$$ Observed $$\to$$ Embedding manifolds. While one usually focuses on the second mapping, by trying to create powerful models for example, the frst mapping is also important, since if that mapping is of insufficient quality the whole model can suffer. This consideration is extremely important when one has to use such models in the real world. If the dataset is too small (insufficient i-manifold sampling) in relation to the i-manifold complexity, the model will almost surely fail to capture the most *instrinsically* important (descriptive) features, since it will focus on the most "evident" (represented, easily learnable) ones. And this is only beacuse insufficient sampling of the i-manifold will make the o-manifold **have** only the most evident features.
+
 Let's use an example to visualize this. We want to create an embedding of the altitude profiles of patches of terrain of size 1km by 1km. We decide to sample the terrain every 100 meters, and so we obtain a set of 10 by 10 values. In this situation, the intrinsic manifold is just the surface of the planet we are measuring <d-footnote>and of all what lies on it</d-footnote>. The observed manifold is the set of all the the 100-dimensional measurements, each datapoint being the (ordered) set of the measures of the terrain. The intrisic dofs are extremely complex: think about the astronomical number of variables needed to exactly predict the altitude of every single point on Earth (including building, trees and so on)! <d-footnote>since this is an idealized situation, we are neglecting a lot practical issues, like the non-pointlike nature of measurements, which would only make learning harder</d-footnote> The observed dofs are the values of the terrain height as measured in the 100 points for each datapoint. 
 The spatial variability of height over 1 square km can be well approximated, at the scale of 100m, by its mean altitude (order 0), direction and magnitude of overall slop (order 1), and higher order features like the concavity, the oblungateness and so on. If we restrict our embedding space to 5 dimensions, we can reasonably expect that our model will be able to only capture the "overall" shape of our datapoint. If we sample only flat cropfields with no buildings, or sea, our model will learn features that are subtly related with the tiny differences between datapoints. If we however sample a mountainous regiorn, or densely populated urban centers, we can reasonably expect that our model try to reproduce some of the pattern found in the dataset. How crucial it is a correct data sampling can be illustrated by thinking to what happens if all of our mountain samples are taken centered on the smmit. The model can learn to give a sense to different types of peaks this way; however, if a sample from the mountain wall is fed inside the model its representation will most prabably be unmeaningful.
 
