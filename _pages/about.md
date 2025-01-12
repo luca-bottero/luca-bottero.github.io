@@ -16,32 +16,25 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Hi, I'm Luca and I am Physicist and Freelancer.
+### Hi, I'm Luca and I am Physicist and Freelancer.
 
 - ⚛️ **Theoretical Physics Master's Student** at the University of Turin, Italy
-- 🌱 **Developer and Consultant** specializing in Machine Learning and AI applications
+- 🌱 **Developer and Consultant** specialized in Machine Learning and AI applications
 - 🔬 **Co-founder** of the Machine Learning Journal Club
 - 🛒 **Former Co-founder** of the Clevi startup
 
-- 🔭 Passionate about exploring the intersection of **physics** and **artificial intelligence**
-- 🧩 Experienced in developing **complex algorithms** and **data-driven solutions**
+- 🔭 Deeply passionate about every aspect of **physics**
+- 🧩 Experienced in developing **AI products**, due to **specialized knowledge of Machine Learning**
 - 🚀 Always looking for **collaborative projects** and new **challenges**
 - 📚 Committed to **lifelong learning** and sharing knowledge with the community
 
----
+### Executive Summary
 
-## For Business
+#### Artificial Intelligence & Machine Learning
+I have engineered a range of innovative products leveraging Artificial Intelligence, being both the designer and the full stack developer of those projects. Examples of these ventures are showcased on the [projects page](/projects/#work).
 
-### Artificial Intelligence
-I have engineered a range of innovative products leveraging Artificial Intelligence. Examples of these ventures are showcased on the [projects page](/projects/#work). Whether you require implementation of pre-existing AI solutions or bespoke development tailored to your specific needs, I offer comprehensive expertise to drive your AI initiatives forward.
-
-### Data Analysis
+#### Data Analysis
 My proficiency in data analysis enables the extraction of actionable insights from complex datasets. I specialize in conducting thorough statistical analyses and constructing sophisticated mathematical models to uncover hidden patterns and inform strategic decisions.
 
-### Machine Learning
-Machine Learning empowers organizations to harness predictive capabilities and enhance decision-making processes. I provide expertise in deploying machine learning models in production environments, ensuring their scalability, robustness, and seamless integration into existing systems.
-
----
-
-## Academical Work
-Take a look at the [publications page](/publications/)
+#### Academical Work
+The scientific output I have produced so far are mainly focused in the Machine Learning field. Take a look at the [publications page](/publications/)
