@@ -25,6 +25,7 @@ const t = lang === 'it' ? {
     { k: 'TESI MAGISTRALE — FISICA TEORICA, UNITO 2025', h: 'Geometric Deep Learning per la fisica su reticolo', d: 'Un modello di diffusione su grafi condizionato dalla temperatura fisica genera configurazioni del modello di Ising lungo tutto il diagramma di fase — addestrato su reticoli 32², campiona a 64² grazie alla natura geometrica dell\'architettura, validato contro Monte Carlo su magnetizzazione, calore specifico e funzioni di correlazione. In parallelo: un campionatore Monte Carlo per teorie di gauge SU(3) su GPU (heatbath di Kennedy–Pendleton, over-relaxation, tensione di stringa dai rapporti di Creutz).' },
     { k: 'TESI TRIENNALE — FISICA, UNITO 2022', h: 'L\'ipertrizio in ALICE al CERN, con il machine learning', d: 'Pipeline professionale di estrazione del segnale per il decadimento a tre corpi dell\'(anti-)ipertrizio in collisioni pp a √s = 13 TeV: classificatore BDT su 15 variabili cinematiche e di identificazione, ottimizzazione degli iperparametri, fit di massa invariante, plot di Dalitz e sistematiche — su dataset fino a ~8×10⁹ eventi.' },
   ],
+  thesisFig: { src: '/assets/img/gdl_validation.png', cap: 'Dalla tesi magistrale: modello di diffusione vs Monte Carlo — magnetizzazione, calore specifico ed energia interna attraverso la transizione di fase di Ising' },
   galleryH: 'La scienza, da guardare',
   gallerySub: 'Fisica computazionale pubblicata in open source sul mio GitHub — simulazioni che puoi eseguire, non solo guardare.',
   figs: [
@@ -56,6 +57,7 @@ const t = lang === 'it' ? {
     { k: 'MSc THESIS — THEORETICAL PHYSICS, UNITO 2025', h: 'Geometric Deep Learning for lattice physics', d: 'A graph diffusion model conditioned on physical temperature generates Ising configurations across the whole phase diagram — trained on 32² lattices, it samples at 64² thanks to the geometric nature of the architecture, validated against Monte Carlo on magnetization, specific heat and correlation functions. In parallel: a GPU Monte Carlo sampler for SU(3) gauge theories (Kennedy–Pendleton heatbath, over-relaxation, string tension from Creutz ratios).' },
     { k: 'BSc THESIS — PHYSICS, UNITO 2022', h: 'The hypertriton at ALICE/CERN, with machine learning', d: 'A professional signal-extraction pipeline for the 3-body decay of the (anti-)hypertriton in pp collisions at √s = 13 TeV: BDT classifier over 15 kinematic and particle-ID variables, hyperparameter optimization, invariant-mass fits, Dalitz plots and systematics — on datasets up to ~8×10⁹ events.' },
   ],
+  thesisFig: { src: '/assets/img/gdl_validation.png', cap: 'From the MSc thesis: diffusion model vs Monte Carlo — magnetization, specific heat and internal energy across the Ising phase transition' },
   galleryH: 'Science you can watch',
   gallerySub: 'Computational physics published open source on my GitHub — simulations you can run, not just watch.',
   figs: [
@@ -116,6 +118,10 @@ const t = lang === 'it' ? {
         </div>
       ))}
     </div>
+    <figure class="figure reveal" style="margin:26px 0 0">
+      <img src={t.thesisFig.src} alt={t.thesisFig.cap} loading="lazy" />
+      <figcaption>{t.thesisFig.cap}</figcaption>
+    </figure>
   </section>
 
   <section class="section wrap">

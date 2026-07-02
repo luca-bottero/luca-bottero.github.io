@@ -238,7 +238,7 @@ a.card:hover { text-decoration: none; border-color: var(--accent-deep); transfor
   border: 1px solid var(--line); border-radius: var(--radius);
   overflow: hidden; background: var(--panel); box-shadow: var(--shadow);
 }
-.figure img { display: block; width: 100%; }
+.figure img, .figure video { display: block; width: 100%; }
 .figure figcaption {
   font-family: var(--font-mono); font-size: 11px; color: var(--dim);
   padding: 10px 14px; border-top: 1px solid var(--line); letter-spacing: 0.06em;
