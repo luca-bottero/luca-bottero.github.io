@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const t = lang === 'it' ? {
+  title: 'Il Lab — Luca Bottero',
+  desc: 'Esperimenti dal laboratorio personale: decodifica di un messaggio extraterrestre simulato, reti neurali contro RSA, meccanica quantistica animata, dinamica dei corpi rigidi, economia ad agenti.',
+  eyebrow: 'LAB//INDEX',
+  h1: 'Il Lab',
+  sub: 'Il laboratorio personale, 2021–oggi: esperimenti che nessuno ha commissionato. Alcuni sono diventati sistemi, altri restano domande. Tutti sono veri.',
+  items: [
+    { k: 'LAB/01 — SEGNALI', h: 'Decodificare "A Sign In Space"', d: 'Nel 2023 l\'ESA ha trasmesso dalla sonda ExoMars TGO un messaggio extraterrestre simulato, sfidando chiunque a decodificarlo. Il mio attacco: visualizzazione bit-plane del messaggio 256×256 e un\'ipotesi non convenzionale — il messaggio come programma per una macchina FlipJump a singola istruzione, implementata e fatta girare sui dati reali, con l\'evoluzione della memoria animata.' },
+    { k: 'LAB/02 — CRITTOGRAFIA', h: 'Una rete neurale contro RSA', d: 'Può una rete neurale imparare a fattorizzare semiprimi? Un esperimento serio su una domanda impertinente: architettura multi-input (bit del prodotto + radice quadrata), output su entrambi i fattori primi, e una loss custom pesata sulla significatività dei bit. (Spoiler: RSA è salvo — ma il perché è istruttivo.)' },
+    { k: 'LAB/03 — QUANTI', h: 'Meccanica quantistica animata', d: 'Un sotto-laboratorio completo: risolutori dell\'equazione di Schrödinger indipendente dal tempo, metodo di Numerov, Hartree per la struttura della materia, e l\'evoluzione temporale di particelle identiche interagenti resa in video.' },
+    { k: 'LAB/04 — DINAMICA', h: 'Corpi rigidi dai principi primi', d: 'Un simulatore 6DOF scritto da zero: equazioni di Eulero nel sistema del corpo, integrazione dell\'assetto con quaternioni, vincoli — con la derivazione completa delle equazioni scritta a mano in un PDF di accompagnamento.' },
+    { k: 'LAB/05 — COMPLESSITÀ', h: 'Economia che emerge dagli agenti', d: 'Modelli ad agenti: la disuguaglianza di ricchezza che emerge da scambi semplici, mercati venditore-negozio, e i primi esperimenti con agenti LLM orchestrati — datati marzo 2024, prima che diventasse moda.' },
+    { k: 'LAB/06 — LINGUAGGIO', h: 'Un GPT da zero, in italiano', d: 'Un LLM in stile GPT addestrato da zero su corpus italiano: tokenizzatore BPE custom, training loop PyTorch scritto a mano, esperimenti di ottimizzazione. Capire i transformer costruendone uno.' },
+  ],
+  note: 'Molti di questi esperimenti vivono in repository privati; su richiesta, il codice si mostra volentieri.',
+} : {
+  title: 'The Lab — Luca Bottero',
+  desc: 'Experiments from the personal laboratory: decoding a simulated extraterrestrial message, neural networks vs RSA, animated quantum mechanics, rigid-body dynamics, agent-based economics.',
+  eyebrow: 'LAB//INDEX',
+  h1: 'The Lab',
+  sub: 'The personal laboratory, 2021–today: experiments nobody commissioned. Some became systems, some remain questions. All of them are real.',
+  items: [
+    { k: 'LAB/01 — SIGNALS', h: 'Decoding "A Sign In Space"', d: 'In 2023 ESA transmitted a simulated extraterrestrial message from the ExoMars TGO probe, challenging anyone to decode it. My attack: bit-plane visualization of the 256×256 message and an unconventional hypothesis — the message as a program for a single-instruction FlipJump machine, implemented and run on the real data, with the memory evolution animated.' },
+    { k: 'LAB/02 — CRYPTOGRAPHY', h: 'A neural network vs RSA', d: 'Can a neural network learn to factor semiprimes? A serious experiment on an impertinent question: multi-input architecture (product bits + square root), outputs over both prime factors, and a custom loss weighted by bit significance. (Spoiler: RSA is safe — but the why is instructive.)' },
+    { k: 'LAB/03 — QUANTA', h: 'Animated quantum mechanics', d: 'A complete sub-lab: time-independent Schrödinger solvers, the Numerov method, Hartree methods for the structure of matter, and the time evolution of interacting identical particles rendered as videos.' },
+    { k: 'LAB/04 — DYNAMICS', h: 'Rigid bodies from first principles', d: 'A 6DOF simulator written from scratch: Euler equations in the body frame, quaternion attitude integration, constraints — with the full derivation of the equations hand-written in a companion PDF.' },
+    { k: 'LAB/05 — COMPLEXITY', h: 'Economics emerging from agents', d: 'Agent-based models: wealth inequality emerging from simple exchanges, seller-shop markets, and early experiments with orchestrated LLM agents — dated March 2024, before it became fashionable.' },
+    { k: 'LAB/06 — LANGUAGE', h: 'A GPT from scratch, in Italian', d: 'A GPT-style LLM trained from scratch on an Italian corpus: custom BPE tokenizer, hand-written PyTorch training loop, optimization experiments. Understanding transformers by building one.' },
+  ],
+  note: 'Many of these experiments live in private repositories; the code is gladly shown on request.',
+};
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/lab/`}>
+  <section class="section wrap" style="margin-top:70px;">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h1 class="display" style="font-size:clamp(36px,6vw,64px); margin-top:14px;">{t.h1}</h1>
+    <p class="muted" style="max-width:60ch; font-size:16.5px; margin-top:16px;">{t.sub}</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="grid-2">
+      {t.items.map((it: any) => (
+        <div class="card reveal">
+          <span class="k">{it.k}</span>
+          <h3 style="margin-top:10px">{it.h}</h3>
+          <p>{it.d}</p>
+        </div>
+      ))}
+    </div>
+    <p class="reveal" style="margin-top:26px; font-family:var(--font-mono); font-size:12px; color:var(--dim);">{t.note}</p>
+  </section>
+</Base>

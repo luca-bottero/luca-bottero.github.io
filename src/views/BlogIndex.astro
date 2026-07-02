@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const posts = (await getCollection('blog', ({ data }) => data.lang === lang))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const t = lang === 'it' ? {
+  title: 'Blog — Luca Bottero',
+  desc: 'Saggi e note tecniche: intelligenza artificiale, fisica, sistemi autonomi e ciò che le macchine pensanti significano per noi.',
+  eyebrow: 'TX//LOG',
+  h1: 'Blog',
+  sub: 'Saggi e note tecniche. Le opinioni vivono qui — i fatti stanno nel Percorso.',
+  read: 'Leggi ▸',
+} : {
+  title: 'Blog — Luca Bottero',
+  desc: 'Essays and technical notes: artificial intelligence, physics, autonomous systems, and what thinking machines mean for us.',
+  eyebrow: 'TX//LOG',
+  h1: 'Blog',
+  sub: 'Essays and technical notes. Opinions live here — the facts live in the Record.',
+  read: 'Read ▸',
+};
+
+const fmt = new Intl.DateTimeFormat(lang === 'it' ? 'it-IT' : 'en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/blog/`}>
+  <section class="section wrap" style="margin-top:70px;">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h1 class="display" style="font-size:clamp(36px,6vw,64px); margin-top:14px;">{t.h1}</h1>
+    <p class="muted" style="max-width:60ch; font-size:16.5px; margin-top:16px;">{t.sub}</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="grid-2">
+      {posts.map((post) => (
+        <a class="card reveal" href={`${p}/blog/${post.data.postSlug}/`}>
+          <span class="k tnum">{fmt.format(post.data.date)}</span>
+          <h3 style="margin-top:10px; text-transform:none; letter-spacing:0;">{post.data.title}</h3>
+          <p>{post.data.description}</p>
+          <p class="k" style="margin-top:14px;">{t.read}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

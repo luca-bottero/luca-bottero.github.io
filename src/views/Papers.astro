@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const t = lang === 'it' ? {
+  title: 'Paper indipendenti — Luca Bottero',
+  desc: 'Ricerca autopubblicata: paper indipendenti con DOI, rigorosamente separati dalle pubblicazioni peer-reviewed.',
+  eyebrow: 'PAP//INDEX',
+  h1: 'Paper indipendenti',
+  sub: 'Ricerca autopubblicata, su temi che vanno dai sistemi multi-agente alla filosofia della mente. Ogni paper ha abstract, versione, data e DOI citabile. Per onestà intellettuale, questa sezione è rigorosamente separata dalle pubblicazioni peer-reviewed nella pagina Scienza: lì c\'è ciò che ha superato la revisione dei pari, qui c\'è ciò che pubblico sotto la mia sola responsabilità.',
+  emptyH: 'In preparazione',
+  empty: 'Il primo paper indipendente è in lavorazione. Nel frattempo: le pubblicazioni peer-reviewed sono nella pagina Scienza, i pezzi più brevi nel Blog.',
+  sciCta: '◂ Scienza',
+  blogCta: 'Blog ▸',
+} : {
+  title: 'Independent papers — Luca Bottero',
+  desc: 'Self-published research: independent papers with DOIs, strictly separated from peer-reviewed publications.',
+  eyebrow: 'PAP//INDEX',
+  h1: 'Independent papers',
+  sub: 'Self-published research, on topics ranging from multi-agent systems to the philosophy of mind. Every paper carries an abstract, a version, a date and a citable DOI. For intellectual honesty, this section is strictly separated from the peer-reviewed publications on the Science page: there you find what survived peer review, here what I publish under my sole responsibility.',
+  emptyH: 'In preparation',
+  empty: 'The first independent paper is in the works. Meanwhile: peer-reviewed publications live on the Science page, shorter pieces on the Blog.',
+  sciCta: '◂ Science',
+  blogCta: 'Blog ▸',
+};
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/papers/`}>
+  <section class="section wrap" style="margin-top:70px;">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h1 class="display" style="font-size:clamp(34px,5.6vw,58px); margin-top:14px;">{t.h1}</h1>
+    <p class="muted" style="max-width:66ch; font-size:16px; margin-top:16px;">{t.sub}</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="card reveal" style="max-width:680px; border-style:dashed;">
+      <span class="k">PAP/001 — {lang === 'it' ? 'PROSSIMAMENTE' : 'UPCOMING'}</span>
+      <h3 style="margin-top:10px">{t.emptyH}</h3>
+      <p>{t.empty}</p>
+      <div style="display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;">
+        <a class="btn" href={`${p}/science/`}>{t.sciCta}</a>
+        <a class="btn" href={`${p}/blog/`}>{t.blogCta}</a>
+      </div>
+    </div>
+  </section>
+</Base>

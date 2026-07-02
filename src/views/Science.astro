@@ -1,0 +1,149 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const t = lang === 'it' ? {
+  title: 'Scienza — Luca Bottero',
+  desc: 'Fisico teorico: pubblicazioni peer-reviewed, tesi su dati ALICE/CERN e sul Geometric Deep Learning per la fisica su reticolo, fisica computazionale open source.',
+  eyebrow: 'SCI//INDEX',
+  h1: 'Scienza',
+  sub: 'Fisico teorico di formazione, scienziato indipendente per scelta. Qui la parte verificabile: pubblicazioni peer-reviewed, ricerca di tesi, fisica computazionale pubblicata in open source.',
+  pubsH: 'Pubblicazioni peer-reviewed',
+  pubs: [
+    { yr: '2022', title: 'Unsupervised learning of geometrical features from images by explicit group actions enforcement', venue: 'NeurIPS 2022 — Workshop NeurReps (OpenReview)', href: 'https://openreview.net/forum?id=sEn61s0M1hy' },
+    { yr: '2020', title: 'Physics-Informed Machine Learning Simulator for Wildfire Propagation', venue: 'arXiv:2012.06825 — presentato ad AAAI 2021 MLPS e a JuliaCon 2021', href: 'https://arxiv.org/abs/2012.06825' },
+    { yr: '2021', title: 'NeuralPDE: Automating Physics-Informed Neural Networks (PINNs) with Error Approximations', venue: 'Preprint, arXiv:2107.09443', href: 'https://arxiv.org/abs/2107.09443' },
+  ],
+  bookH: 'Capitolo di libro',
+  book: '"AI: Prometeo oppure Pandora del XXI secolo?" — in Il modello Partecipativo nella moda (a cura di F. Aimi, Franco Angeli, 2025).',
+  thesesH: 'Le due tesi',
+  theses: [
+    { k: 'TESI MAGISTRALE — FISICA TEORICA, UNITO 2025', h: 'Geometric Deep Learning per la fisica su reticolo', d: 'Un modello di diffusione su grafi condizionato dalla temperatura fisica genera configurazioni del modello di Ising lungo tutto il diagramma di fase — addestrato su reticoli 32², campiona a 64² grazie alla natura geometrica dell\'architettura, validato contro Monte Carlo su magnetizzazione, calore specifico e funzioni di correlazione. In parallelo: un campionatore Monte Carlo per teorie di gauge SU(3) su GPU (heatbath di Kennedy–Pendleton, over-relaxation, tensione di stringa dai rapporti di Creutz).' },
+    { k: 'TESI TRIENNALE — FISICA, UNITO 2022', h: 'L\'ipertrizio in ALICE al CERN, con il machine learning', d: 'Pipeline professionale di estrazione del segnale per il decadimento a tre corpi dell\'(anti-)ipertrizio in collisioni pp a √s = 13 TeV: classificatore BDT su 15 variabili cinematiche e di identificazione, ottimizzazione degli iperparametri, fit di massa invariante, plot di Dalitz e sistematiche — su dataset fino a ~8×10⁹ eventi.' },
+  ],
+  galleryH: 'La scienza, da guardare',
+  gallerySub: 'Fisica computazionale pubblicata in open source sul mio GitHub — simulazioni che puoi eseguire, non solo guardare.',
+  figs: [
+    { src: '/assets/img/peregrine_soliton.gif', cap: 'Solitone di Peregrine — equazione di Schrödinger non lineare' },
+    { src: '/assets/img/akhmediev_breather.gif', cap: 'Breather di Akhmediev — instabilità modulazionale' },
+    { src: '/assets/img/xpoint_animation.gif', cap: 'Riconnessione a punto X — algoritmo di Boris relativistico, C++' },
+    { src: '/assets/img/dipole_animation.gif', cap: 'Intrappolamento in dipolo magnetico — fasce di radiazione in miniatura' },
+  ],
+  reposNote: 'Codice sorgente:',
+  papersCta: 'Paper indipendenti ▸',
+  leonardoH: 'Primo premio — hackathon spaziale Leonardo, 2026',
+  leonardo: 'Con il team vincitore: predizione di guasti alle antenne di terra da 3,8 milioni di righe di telemetria (ROC-AUC 0.968, 44 guasti su 44 anticipati con ~21 ore di preavviso) e propagazione orbitale SGP4 di oltre 100 satelliti reimplementata come kernel CUDA custom.',
+} : {
+  title: 'Science — Luca Bottero',
+  desc: 'Theoretical physicist: peer-reviewed publications, theses on ALICE/CERN data and Geometric Deep Learning for lattice physics, open-source computational physics.',
+  eyebrow: 'SCI//INDEX',
+  h1: 'Science',
+  sub: 'Theoretical physicist by training, independent scientist by choice. Here is the verifiable part: peer-reviewed publications, thesis research, computational physics published open source.',
+  pubsH: 'Peer-reviewed publications',
+  pubs: [
+    { yr: '2022', title: 'Unsupervised learning of geometrical features from images by explicit group actions enforcement', venue: 'NeurIPS 2022 — NeurReps Workshop (OpenReview)', href: 'https://openreview.net/forum?id=sEn61s0M1hy' },
+    { yr: '2020', title: 'Physics-Informed Machine Learning Simulator for Wildfire Propagation', venue: 'arXiv:2012.06825 — presented at AAAI 2021 MLPS and JuliaCon 2021', href: 'https://arxiv.org/abs/2012.06825' },
+    { yr: '2021', title: 'NeuralPDE: Automating Physics-Informed Neural Networks (PINNs) with Error Approximations', venue: 'Preprint, arXiv:2107.09443', href: 'https://arxiv.org/abs/2107.09443' },
+  ],
+  bookH: 'Book chapter',
+  book: '"AI: Prometheus or Pandora of the 21st century?" — in Il modello Partecipativo nella moda (ed. F. Aimi, Franco Angeli, 2025).',
+  thesesH: 'The two theses',
+  theses: [
+    { k: 'MSc THESIS — THEORETICAL PHYSICS, UNITO 2025', h: 'Geometric Deep Learning for lattice physics', d: 'A graph diffusion model conditioned on physical temperature generates Ising configurations across the whole phase diagram — trained on 32² lattices, it samples at 64² thanks to the geometric nature of the architecture, validated against Monte Carlo on magnetization, specific heat and correlation functions. In parallel: a GPU Monte Carlo sampler for SU(3) gauge theories (Kennedy–Pendleton heatbath, over-relaxation, string tension from Creutz ratios).' },
+    { k: 'BSc THESIS — PHYSICS, UNITO 2022', h: 'The hypertriton at ALICE/CERN, with machine learning', d: 'A professional signal-extraction pipeline for the 3-body decay of the (anti-)hypertriton in pp collisions at √s = 13 TeV: BDT classifier over 15 kinematic and particle-ID variables, hyperparameter optimization, invariant-mass fits, Dalitz plots and systematics — on datasets up to ~8×10⁹ events.' },
+  ],
+  galleryH: 'Science you can watch',
+  gallerySub: 'Computational physics published open source on my GitHub — simulations you can run, not just watch.',
+  figs: [
+    { src: '/assets/img/peregrine_soliton.gif', cap: 'Peregrine soliton — nonlinear Schrödinger equation' },
+    { src: '/assets/img/akhmediev_breather.gif', cap: 'Akhmediev breather — modulational instability' },
+    { src: '/assets/img/xpoint_animation.gif', cap: 'X-point reconnection — relativistic Boris algorithm, C++' },
+    { src: '/assets/img/dipole_animation.gif', cap: 'Magnetic dipole trapping — miniature radiation belts' },
+  ],
+  reposNote: 'Source code:',
+  papersCta: 'Independent papers ▸',
+  leonardoH: 'First prize — Leonardo space hackathon, 2026',
+  leonardo: 'With the winning team: ground-antenna fault prediction from 3.8M telemetry rows (ROC-AUC 0.968, 44/44 faults anticipated with ~21h warning) and SGP4 orbital propagation of 100+ satellites reimplemented as a custom CUDA kernel.',
+};
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/science/`}>
+  <section class="section wrap" style="margin-top:70px;">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h1 class="display" style="font-size:clamp(36px,6vw,64px); margin-top:14px;">{t.h1}</h1>
+    <p class="muted" style="max-width:64ch; font-size:16.5px; margin-top:16px;">{t.sub}</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">SCI//PUBLISHED</span>
+      <h2>{t.pubsH}</h2>
+    </div>
+    <div class="timeline reveal">
+      {t.pubs.map((pub: any) => (
+        <div class="trow">
+          <span class="yr">{pub.yr}</span>
+          <span class="what">
+            <b><a href={pub.href} rel="noopener" style="color:var(--ink)">{pub.title}</a></b>
+            <span> — {pub.venue}</span>
+          </span>
+        </div>
+      ))}
+      <div class="trow">
+        <span class="yr">2025</span>
+        <span class="what"><b>{t.bookH}</b><span> — {t.book}</span></span>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:20px;">
+      <a class="btn" href={`${p}/papers/`}>{t.papersCta}</a>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">SCI//THESES</span>
+      <h2>{t.thesesH}</h2>
+    </div>
+    <div class="grid-2">
+      {t.theses.map((th: any) => (
+        <div class="card flag reveal">
+          <span class="k">{th.k}</span>
+          <h3 style="margin-top:10px">{th.h}</h3>
+          <p>{th.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">SCI//GALLERY</span>
+      <h2>{t.galleryH}</h2>
+      <p class="sub">{t.gallerySub}</p>
+    </div>
+    <div class="grid-2">
+      {t.figs.map((f: any) => (
+        <figure class="figure reveal" style="margin:0">
+          <img src={f.src} alt={f.cap} loading="lazy" />
+          <figcaption>{f.cap}</figcaption>
+        </figure>
+      ))}
+    </div>
+    <p class="reveal" style="margin-top:18px; font-family:var(--font-mono); font-size:12px; color:var(--dim);">
+      {t.reposNote}
+      <a href="https://github.com/luca-bottero/ChargedParticleSimulator" rel="noopener">ChargedParticleSimulator</a> ·
+      <a href="https://github.com/luca-bottero/Computational_QM" rel="noopener">Computational_QM</a>
+    </p>
+  </section>
+
+  <div class="band">
+    <div class="wrap reveal">
+      <span class="eyebrow">SCI//SPACE</span>
+      <h2 class="display" style="font-size:clamp(20px,2.8vw,28px); margin-top:10px;">{t.leonardoH}</h2>
+      <p class="muted" style="max-width:70ch; margin-top:12px;">{t.leonardo}</p>
+    </div>
+  </div>
+</Base>

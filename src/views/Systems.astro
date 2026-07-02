@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const t = lang === 'it' ? {
+  title: 'Sistemi — Luca Bottero',
+  desc: 'Il portfolio: sistemi di AI autonoma, prodotti consegnati a clienti reali e strumenti di ricerca. Fatti, date, risultati.',
+  eyebrow: 'SYS//INDEX',
+  h1: 'Sistemi',
+  sub: 'Fatti, non aggettivi. Ogni voce è un sistema reale: cosa fa, come è costruito, dove opera. I tre di punta hanno un caso di studio dedicato.',
+  tier1: 'TIER 1 — Sistemi di punta',
+  tier2: 'TIER 2 — In produzione e per clienti',
+  tier3: 'TIER 3 — Strumenti e ricerca applicata',
+  flag: [
+    { href: `${p}/systems/aida/`, name: 'AIDA', one: 'Descrivilo. Parametrizzalo. Consegnalo.', d: 'Piattaforma AI-native per la progettazione meccanica: trasforma l\'intento ingegneristico in modelli 3D completamente parametrici attraverso un\'interfaccia conversazionale. Parametri nominati e modificabili, anteprima 3D immediata, configurazioni salvate, export STL/STEP, workspace di team con versionamento. In produzione su aida.nousynth.com.' },
+    { href: `${p}/systems/drone-swarm/`, name: 'Drone Swarm', one: 'Uno sciame marittimo che si auto-organizza, senza pianificatore centrale.', d: 'Ogni drone ha il proprio cervello AI che riceve missione, contatti dei sensori e messaggi dei pari — e decide da solo. Il coordinamento emerge dalla comunicazione. Simulatore fisico completo e mappa tattica in tempo reale.' },
+    { href: `${p}/systems/eigenlab/`, name: 'EigenLab', one: 'Un laboratorio che conduce il proprio programma di ricerca.', d: 'Gli assegni una domanda di ricerca e un budget: pianifica, indaga, sperimenta, si auto-critica e sintetizza, in cicli — osservabile in diretta, governabile in ogni momento, con limiti di spesa rigidi.' },
+  ],
+  deployed: [
+    { name: 'ABACUS', d: 'Analista AI su un ERP Microsoft Business Central in produzione: rispondi a domande in linguaggio naturale sui dati aziendali reali, con tabelle e grafici in streaming. In uso presso un distributore di ricambi nautici.', tag: 'IN PRODUZIONE' },
+    { name: 'TILT', d: 'Assistente giuridico sul diritto doganale UE: acquisisce automaticamente la legislazione da EUR-Lex e risponde con citazioni puntuali. Sviluppato per Fondazione DIG421.', tag: 'CLIENTE' },
+    { name: 'Guide Scheduler', d: '130 viaggi, 30 guide, vincoli di disponibilità e anzianità: ottimizzazione combinatoria consegnata come applicazione web multi-tenant a un tour operator reale.', tag: 'IN PRODUZIONE' },
+    { name: 'mIA', d: 'Assistente conversazionale con avatar video in streaming, costruito e messo in produzione in solitaria nel 2024 per Tertium, su Google Cloud.', tag: 'CONSEGNATO 2024' },
+    { name: 'second_brain', d: 'Assistente vocale in tempo reale, interamente locale su una GPU consumer da 12 GB — nessun cloud — con interruzione a metà frase. Ingegneria della latenza come requisito.', tag: 'R&D' },
+    { name: 'SophIA @ Cogitans', d: 'Product Owner del workflow multi-agente di SophIA, l\'ecosistema "hybrid thinking tools" di Cogitans SRL (co-fondatore al 25%, settore moda).', tag: 'VENTURE' },
+  ],
+  tools: [
+    { name: 'nagentx', d: 'Il framework proprietario per agenti sotto ogni sistema NouSynth, costruito da zero. Gli interni restano riservati: i risultati sono in questa pagina.' },
+    { name: 'codularity', d: 'Assistente di coding agentico da terminale, costruito sul framework proprietario, per l\'uso quotidiano interno.' },
+    { name: 'Book Factory', d: 'Sistema di generazione di libri completi con export EPUB/PDF: circa 20 titoli prodotti, con coerenza mantenuta sull\'intera lunghezza.' },
+    { name: 'RAG & Document AI', d: 'PoC e sistemi per clienti: RAG su manuali industriali e ticket di supporto (Fondazione DIG421), estrazione strutturata da email e PDF, text-to-SQL, OCR con modelli document-understanding.' },
+    { name: 'Previsioni retail', d: 'Analisi e modelli predittivi su serie storiche di vendita per la moda: ARIMA, XGBoost, feature engineering su colori e categorie.' },
+    { name: 'SoundCode', d: 'Riconoscimento audio in tempo reale in stile Shazam per meccaniche promozionali radio: fingerprinting, matching contro registrazioni live.' },
+  ],
+} : {
+  title: 'Systems — Luca Bottero',
+  desc: 'The portfolio: autonomous AI systems, products shipped to real clients, and research tools. Facts, dates, outcomes.',
+  eyebrow: 'SYS//INDEX',
+  h1: 'Systems',
+  sub: 'Facts, not adjectives. Every entry is a real system: what it does, how it is built, where it operates. The three flagships have dedicated case studies.',
+  tier1: 'TIER 1 — Flagships',
+  tier2: 'TIER 2 — In production & client work',
+  tier3: 'TIER 3 — Tools & applied research',
+  flag: [
+    { href: `${p}/systems/aida/`, name: 'AIDA', one: 'Describe it. Parametrize it. Ship it.', d: 'An AI-native mechanical design platform: turns engineering intent into fully parametric 3D models through a conversational interface. Named, editable parameters, instant 3D preview, saved configurations, STL/STEP export, team workspaces with versioning. In production at aida.nousynth.com.' },
+    { href: `${p}/systems/drone-swarm/`, name: 'Drone Swarm', one: 'A self-organizing maritime swarm with no central planner.', d: 'Every drone runs its own AI brain receiving the mission, sensor contacts and peer messages — and decides alone. Coordination emerges from communication. Full physics simulator and real-time tactical map.' },
+    { href: `${p}/systems/eigenlab/`, name: 'EigenLab', one: 'A laboratory that runs its own research program.', d: 'Assign it a research question and a budget: it plans, investigates, experiments, critiques itself and synthesizes, in cycles — observable live, steerable at any moment, under hard spending limits.' },
+  ],
+  deployed: [
+    { name: 'ABACUS', d: 'AI analyst over a production Microsoft Business Central ERP: ask natural-language questions over live business data, get streamed answers with tables and charts. In use at a nautical spare-parts distributor.', tag: 'IN PRODUCTION' },
+    { name: 'TILT', d: 'Legal assistant over EU customs law: automatically ingests legislation from EUR-Lex and answers with precise citations. Built for Fondazione DIG421.', tag: 'CLIENT' },
+    { name: 'Guide Scheduler', d: '130 trips, 30 guides, availability and seniority constraints: combinatorial optimization shipped as a multi-tenant web app to a real tour operator.', tag: 'IN PRODUCTION' },
+    { name: 'mIA', d: 'Conversational assistant with a streaming video avatar, built and deployed solo in 2024 for Tertium, on Google Cloud.', tag: 'SHIPPED 2024' },
+    { name: 'second_brain', d: 'Real-time voice assistant, fully local on a 12 GB consumer GPU — no cloud — with mid-sentence barge-in. Latency engineering as a requirement.', tag: 'R&D' },
+    { name: 'SophIA @ Cogitans', d: 'Product Owner of the multi-agent workflow of SophIA, the "hybrid thinking tools" ecosystem of Cogitans SRL (25% co-founder, fashion sector).', tag: 'VENTURE' },
+  ],
+  tools: [
+    { name: 'nagentx', d: 'The proprietary agent framework under every NouSynth system, built from scratch. Its internals stay confidential: the results are on this page.' },
+    { name: 'codularity', d: 'A terminal-based agentic coding assistant, built on the proprietary framework, for daily internal use.' },
+    { name: 'Book Factory', d: 'A system generating complete books with EPUB/PDF export: ~20 titles produced, with coherence maintained across full length.' },
+    { name: 'RAG & Document AI', d: 'Client PoCs and systems: RAG over industrial manuals and support tickets (Fondazione DIG421), structured extraction from emails and PDFs, text-to-SQL, OCR with document-understanding models.' },
+    { name: 'Retail forecasting', d: 'Time-series analysis and predictive models for fashion retail: ARIMA, XGBoost, feature engineering over colors and categories.' },
+    { name: 'SoundCode', d: 'Shazam-style real-time audio recognition for radio promo mechanics: fingerprinting, matching against live re-recordings.' },
+  ],
+};
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/systems/`}>
+  <section class="section wrap" style="margin-top:70px;">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h1 class="display" style="font-size:clamp(36px,6vw,64px); margin-top:14px;">{t.h1}</h1>
+    <p class="muted" style="max-width:64ch; font-size:16.5px; margin-top:16px;">{t.sub}</p>
+  </section>
+
+  <section class="section wrap">
+    <p class="eyebrow reveal" style="margin-bottom:16px;">{t.tier1}</p>
+    <div class="grid-3">
+      {t.flag.map((f: any) => (
+        <a class="card flag reveal" href={f.href}>
+          <h3>{f.name}</h3>
+          <p style="color:var(--ink); margin-top:8px;">{f.one}</p>
+          <p>{f.d}</p>
+          <p class="k" style="margin-top:14px;">{lang === 'it' ? 'CASO DI STUDIO ▸' : 'CASE STUDY ▸'}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <p class="eyebrow reveal" style="margin-bottom:16px;">{t.tier2}</p>
+    <div class="grid-3">
+      {t.deployed.map((s: any) => (
+        <div class="card reveal">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px;">
+            <h3>{s.name}</h3>
+            <span class="tag blue">{s.tag}</span>
+          </div>
+          <p>{s.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <p class="eyebrow reveal" style="margin-bottom:16px;">{t.tier3}</p>
+    <div class="grid-3">
+      {t.tools.map((s: any) => (
+        <div class="card reveal">
+          <h3>{s.name}</h3>
+          <p>{s.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

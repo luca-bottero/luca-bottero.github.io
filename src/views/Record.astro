@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const t = lang === 'it' ? {
+  title: 'Percorso — Luca Bottero',
+  desc: 'Il percorso completo e verificabile: premi, pubblicazioni, docenze, imprese e formazione, in ordine cronologico.',
+  eyebrow: 'REC//DOSSIER',
+  h1: 'Percorso',
+  sub: 'Cronologico e verificabile. Ogni riga è controllabile: niente aggettivi, solo fatti con date.',
+  rows: [
+    { yr: '2015', b: 'Olimpiadi di Fisica', s: ' — tre volte finalista di istituto, finalista regionale (2015 e 2018)' },
+    { yr: '2018', b: 'Libreria C++ di reti neurali da zero', s: ' per la tesi di maturità al liceo scientifico — machine learning da prima dell\'università' },
+    { yr: '2018', b: 'Tirocinio formativo, Tesi SpA', s: ' — interfacce web per il supply chain management' },
+    { yr: '2020', b: 'ProjectX2020', s: ' — nei 6 selezionati del team dell\'Università di Torino: rete neurale physics-informed per la propagazione degli incendi, in collaborazione con il JuliaLab del MIT' },
+    { yr: '2020', b: 'Co-fondatore, Machine Learning Journal Club', s: ' — primo progetto di ricerca collaborativa italiano gestito da studenti, con l\'Università di Torino; oggi vicepresidente' },
+    { yr: '2021', b: 'Paper AAAI-MLPS 2021 + talk a JuliaCon', s: ' — simulatore physics-informed di incendi · preprint NeuralPDE su arXiv' },
+    { yr: '2021', b: 'CSCS-USI Summer School', s: ' — High-Performance Computing con GPU (CUDA, OpenACC), 6 ECTS · due hackathon BCI (BR41N.IO) · hackathon EO Dashboard (ESA/NASA/JAXA)' },
+    { yr: '2022', b: 'Paper al workshop NeurReps, NeurIPS 2022', s: ' — apprendimento non supervisionato di feature geometriche' },
+    { yr: '2022', b: 'Laurea triennale in Fisica, Università di Torino', s: ' — tesi su dati ALICE/CERN: decadimento dell\'(anti-)ipertrizio con tecniche di machine learning' },
+    { yr: '2022', b: 'Co-fondatore e Chief AI Officer, The Clever Company (clevi.co)', s: ' — matching di prodotti e AI generativa per la spesa online (progetto concluso, 2023)' },
+    { yr: '2022', b: 'CyberChallenge.IT', s: ' — team di formazione regionale al Politecnico di Torino · docente di informatica al liceo (2022)' },
+    { yr: '2023', b: 'Apre la pratica indipendente di consulenza AI & ML', s: ' — P.IVA, clienti in retail, industria, legale e servizi' },
+    { yr: '2024', b: 'mIA consegnato in produzione', s: ' — assistente RAG con avatar video in streaming, costruito in solitaria · talk a Ecommerce Day e Fondazione DIG421' },
+    { yr: '2025', b: 'Laurea magistrale in Fisica Teorica, Università di Torino', s: ' — tesi: fondamenti teorici e applicazioni fisiche del Geometric Deep Learning' },
+    { yr: '2025', b: 'Docente, Business School del Sole 24 Ore', s: ' — tre master sull\'AI generativa; nominato "Faculty d\'Eccellenza" da Sole 24 Ore Formazione' },
+    { yr: '2025', b: 'Capitolo di libro pubblicato', s: ' — "AI: Prometeo oppure Pandora del XXI secolo?" (Franco Angeli)' },
+    { yr: '2026', b: 'Primo premio, hackathon Leonardo Space Edition', s: ' — con una proposta per una costellazione satellitare di Quantum Key Distribution a copertura globale' },
+    { yr: '2026', b: 'Co-fondatore, Cogitans SRL', s: ' — Product Owner del workflow multi-agente di SophIA (una delle mie attività, al 25% con altri tre soci)' },
+    { yr: '2026', b: 'Master di II livello in Ottica e Informazione Quantistica', s: ' — Sapienza Università di Roma, in corso' },
+    { yr: '2026', b: 'EigenLab, sciame di droni e ABACUS operativi', s: ' — l\'ecosistema NouSynth in produzione' },
+  ],
+  talksH: 'Interventi pubblici selezionati',
+  talks: [
+    ['2026', 'AI & Machine Learning — Fondazione DIG421 (talk tecnico sui fondamenti, dalla regressione ai modelli foundation)'],
+    ['2025', 'Agenti AI: oltre il prompt — Fondazione DIG421 · Intelligenza artificiale in azienda — Confapi Piacenza'],
+    ['2024', 'RAG: la frontiera dell\'AI come strumento di supporto al business — Fondazione DIG421'],
+    ['2023', 'AI nell\'e-commerce: casi d\'uso — Ecommerce Day'],
+    ['2021', 'Physics-Informed ML Simulator for Wildfire Propagation — JuliaCon'],
+  ],
+} : {
+  title: 'Record — Luca Bottero',
+  desc: 'The complete, verifiable record: prizes, publications, teaching, ventures and training, in chronological order.',
+  eyebrow: 'REC//DOSSIER',
+  h1: 'Record',
+  sub: 'Chronological and verifiable. Every line is checkable: no adjectives, only dated facts.',
+  rows: [
+    { yr: '2015', b: 'Italian Physics Olympiad', s: ' — three-time school finalist, regional finalist (2015 and 2018)' },
+    { yr: '2018', b: 'C++ neural-network library from scratch', s: ' for the scientific high-school thesis — machine learning since before university' },
+    { yr: '2018', b: 'Training internship, Tesi SpA', s: ' — web interfaces for supply chain management' },
+    { yr: '2020', b: 'ProjectX2020', s: ' — one of 6 selected for the University of Turin team: physics-informed neural network for wildfire propagation, in collaboration with MIT JuliaLab' },
+    { yr: '2020', b: 'Co-founder, Machine Learning Journal Club', s: ' — the first Italian student-run collaborative research project, with the University of Turin; Vice-President today' },
+    { yr: '2021', b: 'AAAI-MLPS 2021 paper + JuliaCon talk', s: ' — physics-informed wildfire simulator · NeuralPDE preprint on arXiv' },
+    { yr: '2021', b: 'CSCS-USI Summer School', s: ' — High-Performance Computing with GPUs (CUDA, OpenACC), 6 ECTS · two BCI hackathons (BR41N.IO) · EO Dashboard hackathon (ESA/NASA/JAXA)' },
+    { yr: '2022', b: 'NeurReps workshop paper, NeurIPS 2022', s: ' — unsupervised learning of geometric features' },
+    { yr: '2022', b: 'BSc in Physics, University of Turin', s: ' — thesis on ALICE/CERN data: (anti-)hypertriton decay with machine learning techniques' },
+    { yr: '2022', b: 'Co-founder and Chief AI Officer, The Clever Company (clevi.co)', s: ' — product matching and generative AI for online groceries (project ended, 2023)' },
+    { yr: '2022', b: 'CyberChallenge.IT', s: ' — regional training team at Politecnico di Torino · high-school informatics teacher (2022)' },
+    { yr: '2023', b: 'Independent AI & ML consulting practice opens', s: ' — VAT-registered, clients across retail, industry, legal and services' },
+    { yr: '2024', b: 'mIA shipped to production', s: ' — RAG assistant with a streaming video avatar, built solo · talks at Ecommerce Day and Fondazione DIG421' },
+    { yr: '2025', b: 'MSc in Theoretical Physics, University of Turin', s: ' — thesis: theoretical foundations and physics applications of Geometric Deep Learning' },
+    { yr: '2025', b: 'Lecturer, Sole 24 Ore Business School', s: ' — three masters on generative AI; named "Faculty d\'Eccellenza" by Sole 24 Ore Formazione' },
+    { yr: '2025', b: 'Book chapter published', s: ' — "AI: Prometheus or Pandora of the 21st century?" (Franco Angeli)' },
+    { yr: '2026', b: 'First prize, Leonardo Space Edition hackathon', s: ' — with a proposal for a global-coverage Quantum Key Distribution satellite constellation' },
+    { yr: '2026', b: 'Co-founder, Cogitans SRL', s: ' — Product Owner of SophIA\'s multi-agent workflow (one of my activities, 25% alongside three partners)' },
+    { yr: '2026', b: 'Second-level Master in Optics and Quantum Information', s: ' — Sapienza University of Rome, ongoing' },
+    { yr: '2026', b: 'EigenLab, drone swarm and ABACUS operational', s: ' — the NouSynth ecosystem in production' },
+  ],
+  talksH: 'Selected public talks',
+  talks: [
+    ['2026', 'AI & Machine Learning — Fondazione DIG421 (technical talk on foundations, from regression to foundation models)'],
+    ['2025', 'AI agents: beyond the prompt — Fondazione DIG421 · AI in business — Confapi Piacenza'],
+    ['2024', 'RAG: AI\'s frontier as a business support tool — Fondazione DIG421'],
+    ['2023', 'AI in e-commerce: use cases — Ecommerce Day'],
+    ['2021', 'Physics-Informed ML Simulator for Wildfire Propagation — JuliaCon'],
+  ],
+};
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/record/`}>
+  <section class="section wrap" style="margin-top:70px;">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h1 class="display" style="font-size:clamp(36px,6vw,64px); margin-top:14px;">{t.h1}</h1>
+    <p class="muted" style="max-width:60ch; font-size:16.5px; margin-top:16px;">{t.sub}</p>
+  </section>
+
+  <section class="section wrap">
+    <div class="timeline reveal">
+      {t.rows.map((r: any) => (
+        <div class="trow">
+          <span class="yr">{r.yr}</span>
+          <span class="what"><b>{r.b}</b><span>{r.s}</span></span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">REC//TALKS</span>
+      <h2 style="font-size:24px;">{t.talksH}</h2>
+    </div>
+    <div class="timeline reveal">
+      {t.talks.map((tk: any) => (
+        <div class="trow">
+          <span class="yr">{tk[0]}</span>
+          <span class="what"><span>{tk[1]}</span></span>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>

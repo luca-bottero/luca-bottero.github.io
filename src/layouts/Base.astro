@@ -1,0 +1,181 @@
+---
+import '../styles/global.css';
+import { ui, twinPath, langPrefix, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** Current path in EN form for lang=en pages, IT form for lang=it pages (with trailing slash). */
+  path: string;
+  katex?: boolean;
+}
+
+const { lang, title, description, path, katex = false } = Astro.props;
+const t = ui[lang];
+const p = langPrefix(lang);
+const twin = twinPath(lang, path);
+const canonical = new URL(path, Astro.site).href;
+
+const navItems = [
+  { href: `${p}/nousynth/`, label: t.nav.nousynth },
+  { href: `${p}/systems/`, label: t.nav.systems },
+  { href: `${p}/science/`, label: t.nav.science },
+  { href: `${p}/lab/`, label: t.nav.lab },
+  { href: `${p}/record/`, label: t.nav.record },
+  { href: `${p}/blog/`, label: t.nav.blog },
+  { href: `${p}/about/`, label: t.nav.about },
+];
+const current = (href: string) => path !== `${p}/` && path.startsWith(href) ? 'page' : undefined;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang === 'en' ? 'it' : 'en'} href={new URL(twin, Astro.site).href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/assets/img/portrait.jpg', Astro.site).href} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    {katex && <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />}
+    <script is:inline>
+      // First-visit language autodetect. Explicit toggle clicks always win afterwards.
+      (function () {
+        try {
+          var stored = localStorage.getItem('lb-lang');
+          var onIt = location.pathname === '/it/' || location.pathname.indexOf('/it/') === 0 || location.pathname === '/it';
+          if (!stored) {
+            var wantsIt = (navigator.language || '').toLowerCase().indexOf('it') === 0;
+            localStorage.setItem('lb-lang', wantsIt ? 'it' : 'en');
+            if (wantsIt && !onIt) {
+              location.replace('/it' + (location.pathname === '/' ? '/' : location.pathname));
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap bar">
+        <a class="logo" href={`${p}/`}>LUCA BOTTERO<span class="slash">//</span>NS</a>
+        <button class="menu-btn" aria-expanded="false" aria-controls="nav">{t.misc.menu}</button>
+        <nav class="nav-links" id="nav">
+          {navItems.map((item) => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
+          <a class="lang-toggle" href={twin} data-lang-toggle data-set-lang={lang === 'en' ? 'it' : 'en'}>
+            {lang === 'en' ? 'IT' : 'EN'} ↺
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="cols">
+          <div>
+            <h4>{t.footer.explore}</h4>
+            <ul>
+              {navItems.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+              <li><a href={`${p}/papers/`}>{t.footer.papers}</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>{t.footer.brand}</h4>
+            <ul>
+              <li><a href="https://nousynth.com" rel="noopener">nousynth.com</a></li>
+              <li><a href={`${p}/systems/aida/`}>AIDA</a></li>
+              <li><a href={`${p}/systems/`}>{t.misc.allSystems}</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>{t.footer.connect}</h4>
+            <ul>
+              <li><a href="mailto:lucabottero99@gmail.com">lucabottero99@gmail.com</a></li>
+              <li><a href="https://github.com/luca-bottero" rel="noopener">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/luca-bottero-physics" rel="noopener">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="fine">
+          <span>© 2026 {t.footer.rights}</span>
+          <span class="tnum">{t.misc.location}</span>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // Mobile menu
+      (function () {
+        var btn = document.querySelector('.menu-btn');
+        var nav = document.getElementById('nav');
+        if (btn && nav) {
+          btn.addEventListener('click', function () {
+            var open = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+          });
+        }
+      })();
+      // Language toggle persistence
+      document.querySelectorAll('[data-lang-toggle]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          try { localStorage.setItem('lb-lang', el.getAttribute('data-set-lang')); } catch (e) {}
+        });
+      });
+      // Scroll reveals
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+            });
+          },
+          { threshold: 0.12 }
+        );
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        // Animated counters
+        var cio = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              cio.unobserve(e.target);
+              var el = e.target;
+              var target = el.getAttribute('data-count');
+              var suffix = el.getAttribute('data-suffix') || '';
+              var n = parseInt(target, 10);
+              if (isNaN(n)) return;
+              var start = performance.now();
+              var dur = 1100;
+              function tick(now) {
+                var k = Math.min(1, (now - start) / dur);
+                var eased = 1 - Math.pow(1 - k, 3);
+                el.textContent = Math.round(n * eased) + suffix;
+                if (k < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            });
+          },
+          { threshold: 0.4 }
+        );
+        document.querySelectorAll('[data-count]').forEach(function (el) { cio.observe(el); });
+      })();
+    </script>
+  </body>
+</html>

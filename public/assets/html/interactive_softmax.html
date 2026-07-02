@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive softmax</title>
+<style>
+  :root {
+    --bg: #131519; --panel: #1e2126; --line: #2e333b; --ink: #e8eaed;
+    --muted: #9aa1ab; --dim: #6b7280; --accent: #4d8df6; --accent2: #7fb0f9;
+    --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--mono); padding: 18px; }
+  .panel { border: 1px solid var(--line); background: var(--panel); border-radius: 2px; padding: 18px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; margin-bottom: 18px; }
+  label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  input[type='range'] { width: 220px; accent-color: var(--accent); }
+  .val { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+  button {
+    background: none; border: 1px solid var(--line); color: var(--ink); font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 14px;
+    border-radius: 2px; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .charts { grid-template-columns: 1fr; } }
+  .chart h3 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin: 0 0 10px; font-weight: 600; }
+  canvas { width: 100%; height: 260px; display: block; }
+  .note { margin-top: 14px; font-size: 11px; color: var(--dim); line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="panel">
+    <div class="controls">
+      <label>Temperature T = <span class="val" id="tval">1.00</span></label>
+      <input type="range" id="temp" min="-2" max="1.6" step="0.01" value="0" aria-label="temperature (log scale)">
+      <button id="regen">↺ New random logits</button>
+    </div>
+    <div class="charts">
+      <div class="chart"><h3>Logits x</h3><canvas id="c1"></canvas></div>
+      <div class="chart"><h3>softmax(x / T)</h3><canvas id="c2"></canvas></div>
+    </div>
+    <p class="note">
+      T → 0: the distribution collapses onto the arg-max (a frozen system occupies its ground state).
+      T → ∞: it flattens toward uniform (thermal agitation wins). This is the Boltzmann–Gibbs
+      distribution wearing machine-learning clothes.
+    </p>
+  </div>
+<script>
+(function () {
+  var N = 12, logits = [];
+  var tempEl = document.getElementById('temp');
+  var tval = document.getElementById('tval');
+  var c1 = document.getElementById('c1'), c2 = document.getElementById('c2');
+
+  function regen() {
+    logits = [];
+    for (var i = 0; i < N; i++) logits.push((Math.random() - 0.3) * 4);
+    draw();
+  }
+  function softmax(xs, T) {
+    var m = Math.max.apply(null, xs);
+    var ex = xs.map(function (x) { return Math.exp((x - m) / T); });
+    var s = ex.reduce(function (a, b) { return a + b; }, 0);
+    return ex.map(function (e) { return e / s; });
+  }
+  function bars(canvas, vals, maxAbs, highlight) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var r = canvas.getBoundingClientRect();
+    canvas.width = r.width * dpr; canvas.height = 260 * dpr;
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var W = r.width, H = 260, pad = 6;
+    ctx.clearRect(0, 0, W, H);
+    var bw = (W - pad * 2) / vals.length;
+    var zero = vals.some(function (v) { return v < 0; }) ? H / 2 : H - 18;
+    ctx.strokeStyle = '#2e333b'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, zero); ctx.lineTo(W, zero); ctx.stroke();
+    var maxIdx = vals.indexOf(Math.max.apply(null, vals));
+    vals.forEach(function (v, i) {
+      var h = (v / maxAbs) * (zero - 14);
+      var x = pad + i * bw + 2, hh = Math.abs(h);
+      ctx.fillStyle = highlight && i === maxIdx ? '#7fb0f9' : 'rgba(77,141,246,0.72)';
+      ctx.fillRect(x, v >= 0 ? zero - h : zero, bw - 4, hh);
+      ctx.strokeStyle = 'rgba(77,141,246,0.9)';
+      ctx.strokeRect(x, v >= 0 ? zero - h : zero, bw - 4, hh);
+    });
+  }
+  function draw() {
+    var T = Math.pow(10, parseFloat(tempEl.value));
+    tval.textContent = T.toFixed(2);
+    var probs = softmax(logits, T);
+    bars(c1, logits, Math.max.apply(null, logits.map(Math.abs)) || 1, false);
+    bars(c2, probs, Math.max.apply(null, probs) || 1, true);
+  }
+  tempEl.addEventListener('input', draw);
+  document.getElementById('regen').addEventListener('click', regen);
+  window.addEventListener('resize', draw);
+  regen();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const t = lang === 'it' ? {
+  title: 'Chi sono — Luca Bottero',
+  desc: 'Fisico teorico, fondatore di NouSynth, scienziato indipendente. Torino, Italia.',
+  eyebrow: 'BIO//PERSON',
+  h1: 'Chi sono',
+  bio1: 'Sono un fisico teorico che ha scelto di fare scienza e ingegneria senza chiedere il permesso. Faccio machine learning da quando ero al liceo — la tesi di maturità era una libreria C++ di reti neurali scritta da zero — e non ho mai smesso: fisica delle particelle al CERN con ALICE, geometric deep learning per la fisica su reticolo, e oggi sistemi di AI autonoma che progettano, si coordinano e conducono ricerca.',
+  bio2: 'Non sono uno sviluppatore convertito all\'AI: sono un fisico che costruisce. La differenza si vede nel metodo — dai principi primi, con validazione quantitativa e disciplina dei vincoli — e nei risultati: sistemi in produzione, non demo.',
+  bio3: 'Vivo e lavoro tra Bra e Torino. Quando non costruisco, studio informazione quantistica alla Sapienza, insegno, e scrivo di ciò che le macchine pensanti significano per noi.',
+  actH: 'Le attività',
+  acts: [
+    ['NouSynth', 'Il marchio con cui costruisco i miei sistemi di AI autonoma e servo i clienti più ambiziosi.'],
+    ['Consulenza AI & ML', 'Pratica indipendente dal 2023: RAG, sistemi agentici, analisi dati, ottimizzazione, formazione.'],
+    ['Cogitans SRL', 'Co-fondatore (25%, con tre soci) — Product Owner del workflow multi-agente di SophIA, settore moda.'],
+    ['Docenza', 'Business School del Sole 24 Ore ("Faculty d\'Eccellenza") · in passato: liceo, ripetizioni dal 2016.'],
+    ['ML Journal Club', 'Co-fondatore e vicepresidente del primo progetto di ricerca collaborativa italiano gestito da studenti.'],
+    ['Formazione continua', 'Master di II livello in Ottica e Informazione Quantistica, Sapienza (in corso).'],
+  ],
+  contactH: 'Contatti',
+  photoCap: 'Torino, Italia — 45.0703°N 7.6869°E',
+} : {
+  title: 'About — Luca Bottero',
+  desc: 'Theoretical physicist, founder of NouSynth, independent scientist. Turin, Italy.',
+  eyebrow: 'BIO//PERSON',
+  h1: 'About',
+  bio1: 'I am a theoretical physicist who chose to do science and engineering without asking permission. I have been doing machine learning since high school — my final thesis was a C++ neural-network library written from scratch — and never stopped: particle physics at CERN with ALICE, geometric deep learning for lattice physics, and today autonomous AI systems that design, coordinate and run research.',
+  bio2: 'I am not a developer converted to AI: I am a physicist who builds. The difference shows in the method — first principles, quantitative validation, discipline of constraints — and in the results: systems in production, not demos.',
+  bio3: 'I live and work between Bra and Turin. When not building, I study quantum information at Sapienza, teach, and write about what thinking machines mean for us.',
+  actH: 'Activities',
+  acts: [
+    ['NouSynth', 'The mark under which I build my autonomous AI systems and serve the most ambitious clients.'],
+    ['AI & ML consulting', 'Independent practice since 2023: RAG, agentic systems, data analysis, optimization, training.'],
+    ['Cogitans SRL', 'Co-founder (25%, with three partners) — Product Owner of SophIA\'s multi-agent workflow, fashion sector.'],
+    ['Teaching', 'Sole 24 Ore Business School ("Faculty d\'Eccellenza") · previously: high school, private tutoring since 2016.'],
+    ['ML Journal Club', 'Co-founder and Vice-President of the first Italian student-run collaborative research project.'],
+    ['Continuous training', 'Second-level Master in Optics and Quantum Information, Sapienza (ongoing).'],
+  ],
+  contactH: 'Contact',
+  photoCap: 'Turin, Italy — 45.0703°N 7.6869°E',
+};
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/about/`}>
+  <section class="section wrap" style="margin-top:70px;">
+    <span class="eyebrow">{t.eyebrow}</span>
+    <h1 class="display" style="font-size:clamp(36px,6vw,64px); margin-top:14px;">{t.h1}</h1>
+    <div style="display:grid; grid-template-columns: 1fr minmax(240px, 320px); gap:40px; margin-top:30px; align-items:start;">
+      <div style="display:grid; gap:18px;">
+        <p style="color:#c7ccd4; font-size:16.5px;">{t.bio1}</p>
+        <p style="color:#c7ccd4; font-size:16.5px;">{t.bio2}</p>
+        <p style="color:#c7ccd4; font-size:16.5px;">{t.bio3}</p>
+      </div>
+      <figure class="figure" style="margin:0;">
+        <img src="/assets/img/portrait.jpg" alt="Luca Bottero" loading="lazy" />
+        <figcaption class="tnum">{t.photoCap}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">BIO//ACTIVITIES</span>
+      <h2 style="font-size:26px;">{t.actH}</h2>
+    </div>
+    <div class="grid-3">
+      {t.acts.map((a: any) => (
+        <div class="card reveal">
+          <h3>{a[0]}</h3>
+          <p>{a[1]}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">BIO//CONTACT</span>
+      <h2 style="font-size:26px;">{t.contactH}</h2>
+    </div>
+    <div class="reveal" style="display:flex; flex-wrap:wrap; gap:12px;">
+      <a class="btn primary" href="mailto:lucabottero99@gmail.com">lucabottero99@gmail.com</a>
+      <a class="btn" href="https://github.com/luca-bottero" rel="noopener">GitHub ▸</a>
+      <a class="btn" href="https://www.linkedin.com/in/luca-bottero-physics" rel="noopener">LinkedIn ▸</a>
+      <a class="btn" href="https://nousynth.com" rel="noopener">nousynth.com ▸</a>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 760px) {
+      section[class~='section'] div[style*='grid-template-columns'] { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</Base>

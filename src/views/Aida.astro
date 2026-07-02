@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const p = langPrefix(lang);
+
+const t = lang === 'it' ? {
+  title: 'AIDA — Progettazione meccanica parametrica con AI | NouSynth',
+  desc: 'AIDA trasforma l\'intento ingegneristico in modelli 3D completamente parametrici: descrivi, parametrizza, esporta. Piattaforma AI-native per la progettazione meccanica.',
+  k: 'NOUSYNTH // AIDA',
+  h1: 'Descrivilo. Parametrizzalo. Consegnalo.',
+  one: 'AIDA trasforma il tuo intento ingegneristico in modelli 3D completamente parametrici — pronti da visualizzare, regolare, esportare e iterare — attraverso un\'interfaccia AI conversazionale. Niente scripting manuale. Niente lotta con la geometria.',
+  probH: 'Il problema',
+  prob: 'Il divario tra specifica e geometria producibile è dove i progetti si arenano. Gli ingegneri meccanici sanno esattamente cosa deve fare un componente; trasformare quella conoscenza in un modello 3D parametrico preciso richiede tradizionalmente ore di lavoro manuale. AIDA chiude quel divario: il ciclo di progettazione che richiedeva una giornata ora richiede minuti.',
+  loopH: 'Come funziona',
+  loopSub: 'Un ciclo di progettazione essenziale, che ti lascia il controllo a ogni passo.',
+  loop: [
+    ['01 — DESCRIVI', 'Racconta ad AIDA cosa ti serve — forma, dimensioni, comportamento del materiale, requisiti funzionali. Con tutto il dettaglio che hai, o anche pochissimo.'],
+    ['02 — MODELLO PARAMETRICO', 'AIDA genera un modello 3D parametrico con parametri nominati e modificabili. Lo visualizzi immediatamente nel viewer 3D integrato.'],
+    ['03 — RAFFINA E ITERA', 'Regoli i parametri direttamente o chiedi all\'AI di modificare il progetto. Ogni modifica ricostruisce il modello in secondi. Salvi le varianti come configurazioni.'],
+    ['04 — ESPORTA E COLLABORA', 'Scarichi STL o STEP pronti per la produzione o la simulazione. Condividi il componente col team: chiunque può ispezionarlo e creare le proprie configurazioni.'],
+  ],
+  featH: 'La piattaforma',
+  feats: [
+    ['Parametrico, sempre', 'Ogni componente è retto da parametri nominati — dimensioni, tolleranze, angoli. Cambi un valore e il modello si ricostruisce all\'istante.'],
+    ['Generazione conversazionale', 'Dal linguaggio naturale alla geometria 3D, con i vincoli ingegneristici rispettati e anteprima 3D dal vivo.'],
+    ['Export per la produzione', 'STL e STEP — i formati accettati da ogni strumento CAM, FEA e slicer.'],
+    ['Per team di ingegneria', 'Workspace isolati per organizzazione, controllo degli accessi per ruolo, libreria parti condivisa con versionamento e audit trail.'],
+  ],
+  numbersH: 'In numeri',
+  numbers: [
+    ['Minuti, non ore', 'Da foglio bianco a modello 3D parametrico in una sola conversazione.'],
+    ['Iterazioni infinite', 'Cambi qualsiasi parametro e rigeneri all\'istante — nessun rilavoro manuale.'],
+    ['100% parametrico', 'Ogni componente generato ha parametri nominati, tutti regolabili.'],
+    ['Versionato', 'Ogni componente traccia la sua storia — torni indietro, confronti, diramifichi.'],
+  ],
+  cta: 'Il prodotto: aida.nousynth.com ▸',
+  back: '◂ Tutti i sistemi',
+} : {
+  title: 'AIDA — AI-powered parametric mechanical design | NouSynth',
+  desc: 'AIDA turns engineering intent into fully parametric 3D models: describe it, parametrize it, ship it. An AI-native mechanical design platform.',
+  k: 'NOUSYNTH // AIDA',
+  h1: 'Describe it. Parametrize it. Ship it.',
+  one: 'AIDA turns your engineering intent into fully parametric 3D models — ready to render, adjust, export, and iterate — all through a conversational AI interface. No manual scripting. No geometry wrestling.',
+  probH: 'The problem',
+  prob: 'The gap between specification and manufacturable geometry is where projects stall. Mechanical engineers know exactly what a part needs to do; turning that knowledge into a precise, parametric 3D model traditionally takes hours of manual work. AIDA closes that gap: the design loop that used to take a day now takes minutes.',
+  loopH: 'How AIDA works',
+  loopSub: 'A streamlined design loop that keeps you in control at every step.',
+  loop: [
+    ['01 — DESCRIBE', 'Tell AIDA what you need — shape, dimensions, material behaviour, functional requirements. As much or as little detail as you have.'],
+    ['02 — PARAMETRIC MODEL', 'AIDA generates a parametric 3D model with named, editable parameters. Visualize it immediately in the integrated 3D viewer.'],
+    ['03 — REFINE & ITERATE', 'Adjust parameters directly or ask the AI to modify the design. Every change rebuilds the model in seconds. Save variants as named configurations.'],
+    ['04 — EXPORT & COLLABORATE', 'Download STL or STEP files ready for manufacturing or simulation. Share the part with your team — they can inspect it and create their own configurations.'],
+  ],
+  featH: 'The platform',
+  feats: [
+    ['Fully parametric, always', 'Every part is backed by named parameters — dimensions, tolerances, angles. Tweak any value and the model rebuilds instantly.'],
+    ['Conversational generation', 'Natural language to 3D geometry, with engineering constraints respected and an instant live 3D preview.'],
+    ['Manufacturing-ready export', 'STL and STEP — the formats accepted by every major CAM, FEA and slicer tool.'],
+    ['Built for engineering teams', 'Isolated per-organization workspaces, role-based access control, a shared parts library with versioning and an audit trail.'],
+  ],
+  numbersH: 'In numbers',
+  numbers: [
+    ['Minutes, not hours', 'From blank slate to parametric 3D model in a single conversation.'],
+    ['Infinite iterations', 'Change any parameter, regenerate instantly — no manual rework.'],
+    ['100% parametric', 'Every generated part has fully adjustable named parameters.'],
+    ['Versioned', 'Every part tracks its history — go back, compare, branch.'],
+  ],
+  cta: 'The product: aida.nousynth.com ▸',
+  back: '◂ All systems',
+};
+---
+<Base lang={lang} title={t.title} description={t.desc} path={`${p}/systems/aida/`}>
+  <article class="section wrap" style="margin-top:70px;">
+    <a class="mono" style="font-size:11px; letter-spacing:0.14em; color:var(--dim);" href={`${p}/systems/`}>{t.back}</a>
+    <p class="eyebrow" style="margin-top:26px;">{t.k}</p>
+    <h1 class="display" style="font-size:clamp(30px,5vw,54px); margin-top:14px;">{t.h1}</h1>
+    <p style="max-width:66ch; font-size:17.5px; color:#c7ccd4; margin-top:22px;">{t.one}</p>
+
+    <div class="section reveal">
+      <div class="card flag" style="max-width:820px;">
+        <span class="k">AIDA//WHY</span>
+        <h3 style="margin-top:10px">{t.probH}</h3>
+        <p>{t.prob}</p>
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-head">
+        <span class="eyebrow">AIDA//LOOP</span>
+        <h2 style="font-size:24px;">{t.loopH}</h2>
+        <p class="sub">{t.loopSub}</p>
+      </div>
+      <div class="timeline">
+        {t.loop.map((s: any) => (
+          <div class="trow">
+            <span class="yr" style="min-width:190px;">{s[0]}</span>
+            <span class="what"><span>{s[1]}</span></span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="eyebrow">AIDA//PLATFORM</span>
+        <h2 style="font-size:24px;">{t.featH}</h2>
+      </div>
+      <div class="grid-2">
+        {t.feats.map((f: any) => (
+          <div class="card reveal">
+            <h3>{f[0]}</h3>
+            <p>{f[1]}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="eyebrow">AIDA//NUMBERS</span>
+        <h2 style="font-size:24px;">{t.numbersH}</h2>
+      </div>
+      <div class="grid-2">
+        {t.numbers.map((n: any) => (
+          <div class="card reveal" style="padding:18px 22px;">
+            <span class="k">{n[0]}</span>
+            <p style="margin-top:8px;">{n[1]}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <a class="btn primary" href="https://aida.nousynth.com" rel="noopener">{t.cta}</a>
+    </div>
+  </article>
+</Base>

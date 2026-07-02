@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import BlogPost from '../../views/BlogPost.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.lang === 'en');
+  return posts.map((post) => ({ params: { slug: post.data.postSlug }, props: { post } }));
+}
+const { post } = Astro.props;
+---
+<BlogPost lang="en" post={post} />

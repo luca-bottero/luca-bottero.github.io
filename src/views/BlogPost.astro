@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { render } from 'astro:content';
+import { langPrefix, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang; post: any }
+const { lang, post } = Astro.props;
+const p = langPrefix(lang);
+const { Content } = await render(post);
+
+const fmt = new Intl.DateTimeFormat(lang === 'it' ? 'it-IT' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+const back = lang === 'it' ? '◂ Blog' : '◂ Blog';
+---
+<Base
+  lang={lang}
+  title={`${post.data.title} — Luca Bottero`}
+  description={post.data.description}
+  path={`${p}/blog/${post.data.postSlug}/`}
+  katex={post.data.math}
+>
+  <article class="section wrap" style="margin-top:70px;">
+    <a class="mono" style="font-size:11px; letter-spacing:0.14em; color:var(--dim);" href={`${p}/blog/`}>{back}</a>
+    <div class="prose" style="margin-top:30px;">
+      <p class="eyebrow tnum">{fmt.format(post.data.date)}</p>
+      <h1 style="text-transform:none; letter-spacing:-0.02em; margin-top:10px;">{post.data.title}</h1>
+      <Content />
+    </div>
+  </article>
+</Base>
