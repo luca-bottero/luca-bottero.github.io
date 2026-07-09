@@ -12,6 +12,7 @@ const t = lang === 'it' ? {
   k: 'NOUSYNTH // EIGENLAB — CASO DI STUDIO',
   h1: 'Un laboratorio autonomo',
   one: 'Assegni una domanda di ricerca e un budget. EigenLab pianifica, indaga, sperimenta, si auto-critica e sintetizza — in cicli, come un gruppo di ricerca. Tu osservi in diretta e puoi intervenire in ogni momento.',
+  status: 'STATO — Sistema di ricerca autonomo con dashboard di controllo in tempo reale, eseguito internamente su domande reali sotto budget rigidi.',
   probH: 'Il problema',
   prob: 'Un singolo agente LLM che "fa ricerca" produce risposte plausibili, non conoscenza affidabile: nessuna esplorazione sistematica delle alternative, nessuna verifica avversaria, nessuna memoria strutturata di ciò che è stato stabilito. E i costi esplodono senza controllo.',
   whatH: 'Cosa fa',
@@ -36,6 +37,7 @@ const t = lang === 'it' ? {
   k: 'NOUSYNTH // EIGENLAB — CASE STUDY',
   h1: 'An autonomous laboratory',
   one: 'You assign a research question and a budget. EigenLab plans, investigates, experiments, critiques itself and synthesizes — in cycles, like a research group. You watch live and can steer at any moment.',
+  status: 'STATUS — An autonomous research system with a live control dashboard, run internally on real questions under hard budgets.',
   probH: 'The problem',
   prob: 'A single LLM agent "doing research" produces plausible answers, not reliable knowledge: no systematic exploration of alternatives, no adversarial verification, no structured memory of what has been established. And costs explode without control.',
   whatH: 'What it does',
@@ -62,6 +64,7 @@ const t = lang === 'it' ? {
     <p class="eyebrow" style="margin-top:26px;">{t.k}</p>
     <h1 class="display" style="font-size:clamp(32px,5.4vw,58px); margin-top:14px;">{t.h1}</h1>
     <p style="max-width:66ch; font-size:17.5px; color:#c7ccd4; margin-top:22px;">{t.one}</p>
+    <p class="mono" style="max-width:66ch; margin-top:16px; font-size:12px; color:var(--dim); letter-spacing:0.04em; line-height:1.6;">{t.status}</p>
 
     <div class="section reveal">
       <div class="card flag" style="max-width:820px;">
