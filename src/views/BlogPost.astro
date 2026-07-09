@@ -10,6 +10,18 @@ const { Content } = await render(post);
 
 const fmt = new Intl.DateTimeFormat(lang === 'it' ? 'it-IT' : 'en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 const back = lang === 'it' ? '◂ Blog' : '◂ Blog';
+const iso = post.data.date.toISOString();
+const canonical = new URL(`${p}/blog/${post.data.postSlug}/`, Astro.site).href;
+const posting = {
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: iso,
+  inLanguage: lang,
+  mainEntityOfPage: canonical,
+  url: canonical,
+  author: { '@id': new URL('/', Astro.site).href + '#person' },
+};
 ---
 <Base
   lang={lang}
@@ -17,6 +29,9 @@ const back = lang === 'it' ? '◂ Blog' : '◂ Blog';
   description={post.data.description}
   path={`${p}/blog/${post.data.postSlug}/`}
   katex={post.data.math}
+  ogType="article"
+  publishedTime={iso}
+  jsonLd={posting}
 >
   <article class="section wrap" style="margin-top:70px;">
     <a class="mono" style="font-size:11px; letter-spacing:0.14em; color:var(--dim);" href={`${p}/blog/`}>{back}</a>

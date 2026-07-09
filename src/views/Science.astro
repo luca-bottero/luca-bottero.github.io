@@ -12,11 +12,12 @@ const t = lang === 'it' ? {
   eyebrow: 'SCI//INDEX',
   h1: 'Scienza',
   sub: 'Fisico teorico di formazione, scienziato indipendente per scelta. Qui la parte verificabile: pubblicazioni peer-reviewed, ricerca di tesi, fisica computazionale pubblicata in open source.',
-  pubsH: 'Pubblicazioni peer-reviewed',
+  pubsH: 'Pubblicazioni',
+  pubsSub: 'Due paper a revisione dei pari — a NeurIPS e ad AAAI — e un preprint arXiv nato da una grande collaborazione. Su ciascuno dichiaro il mio ruolo, senza ambiguità.',
   pubs: [
-    { yr: '2022', title: 'Unsupervised learning of geometrical features from images by explicit group actions enforcement', venue: 'NeurIPS 2022 — Workshop NeurReps (OpenReview)', href: 'https://openreview.net/forum?id=sEn61s0M1hy' },
-    { yr: '2020', title: 'Physics-Informed Machine Learning Simulator for Wildfire Propagation', venue: 'arXiv:2012.06825 — presentato ad AAAI 2021 MLPS e a JuliaCon 2021', href: 'https://arxiv.org/abs/2012.06825' },
-    { yr: '2021', title: 'NeuralPDE: Automating Physics-Informed Neural Networks (PINNs) with Error Approximations', venue: 'Preprint, arXiv:2107.09443', href: 'https://arxiv.org/abs/2107.09443' },
+    { yr: '2022', title: 'Unsupervised learning of geometrical features from images by explicit group actions enforcement', venue: 'NeurIPS 2022 — Workshop NeurReps (OpenReview)', tag: 'PEER-REVIEWED', href: 'https://openreview.net/forum?id=sEn61s0M1hy' },
+    { yr: '2021', title: 'Physics-Informed Machine Learning Simulator for Wildfire Propagation', venue: 'AAAI-MLPS 2021 Spring Symposium · CEUR-WS Vol-2964 · primo autore · anche a JuliaCon 2021', tag: 'PEER-REVIEWED', href: 'https://ceur-ws.org/Vol-2964/article_171.pdf' },
+    { yr: '2021', title: 'NeuralPDE: Automating Physics-Informed Neural Networks (PINNs) with Error Approximations', venue: 'arXiv:2107.09443 — preprint · collaborazione SciML (MIT JuliaLab), 14 autori', tag: 'PREPRINT', href: 'https://arxiv.org/abs/2107.09443' },
   ],
   bookH: 'Capitolo di libro',
   book: '"AI: Prometeo oppure Pandora del XXI secolo?" — in Il modello Partecipativo nella moda (a cura di F. Aimi, Franco Angeli, 2025).',
@@ -29,26 +30,27 @@ const t = lang === 'it' ? {
   galleryH: 'La scienza, da guardare',
   gallerySub: 'Fisica computazionale pubblicata in open source sul mio GitHub — simulazioni che puoi eseguire, non solo guardare.',
   figs: [
-    { src: '/assets/img/peregrine_soliton.gif', cap: 'Solitone di Peregrine — equazione di Schrödinger non lineare' },
-    { src: '/assets/img/akhmediev_breather.gif', cap: 'Breather di Akhmediev — instabilità modulazionale' },
-    { src: '/assets/img/xpoint_animation.gif', cap: 'Riconnessione a punto X — algoritmo di Boris relativistico, C++' },
-    { src: '/assets/img/dipole_animation.gif', cap: 'Intrappolamento in dipolo magnetico — fasce di radiazione in miniatura' },
+    { src: '/assets/video/peregrine_soliton.mp4', cap: 'Solitone di Peregrine — equazione di Schrödinger non lineare' },
+    { src: '/assets/video/akhmediev_breather.mp4', cap: 'Breather di Akhmediev — instabilità modulazionale' },
+    { src: '/assets/video/xpoint_animation.mp4', cap: 'Riconnessione a punto X — algoritmo di Boris relativistico, C++' },
+    { src: '/assets/video/dipole_animation.mp4', cap: 'Intrappolamento in dipolo magnetico — fasce di radiazione in miniatura' },
   ],
   reposNote: 'Codice sorgente:',
   papersCta: 'Paper indipendenti ▸',
-  leonardoH: 'Primo premio — hackathon spaziale Leonardo, 2026',
-  leonardo: 'Con il team vincitore: predizione di guasti alle antenne di terra da 3,8 milioni di righe di telemetria (ROC-AUC 0.968, 44 guasti su 44 anticipati con ~21 ore di preavviso) e propagazione orbitale SGP4 di oltre 100 satelliti reimplementata come kernel CUDA custom.',
+  leonardoH: 'Primo premio — hackathon Leonardo "Space Edition", 2026',
+  leonardo: 'Vincitori assoluti. Il main track era un concept per una costellazione satellitare di Quantum Key Distribution a copertura globale; nelle side challenge code-centric il team ha realizzato la predizione di guasti alle antenne di terra da 3,8 milioni di righe di telemetria (ROC-AUC 0.968, 44 guasti su 44 anticipati con ~21 ore di preavviso) e ha reimplementato la propagazione orbitale SGP4 di oltre 100 satelliti come kernel CUDA custom.',
 } : {
   title: 'Science — Luca Bottero',
   desc: 'Theoretical physicist: peer-reviewed publications, theses on ALICE/CERN data and Geometric Deep Learning for lattice physics, open-source computational physics.',
   eyebrow: 'SCI//INDEX',
   h1: 'Science',
   sub: 'Theoretical physicist by training, independent scientist by choice. Here is the verifiable part: peer-reviewed publications, thesis research, computational physics published open source.',
-  pubsH: 'Peer-reviewed publications',
+  pubsH: 'Publications',
+  pubsSub: 'Two peer-reviewed venue papers — at NeurIPS and AAAI — and one arXiv preprint from a large collaboration. My role in each is stated plainly, no ambiguity.',
   pubs: [
-    { yr: '2022', title: 'Unsupervised learning of geometrical features from images by explicit group actions enforcement', venue: 'NeurIPS 2022 — NeurReps Workshop (OpenReview)', href: 'https://openreview.net/forum?id=sEn61s0M1hy' },
-    { yr: '2020', title: 'Physics-Informed Machine Learning Simulator for Wildfire Propagation', venue: 'arXiv:2012.06825 — presented at AAAI 2021 MLPS and JuliaCon 2021', href: 'https://arxiv.org/abs/2012.06825' },
-    { yr: '2021', title: 'NeuralPDE: Automating Physics-Informed Neural Networks (PINNs) with Error Approximations', venue: 'Preprint, arXiv:2107.09443', href: 'https://arxiv.org/abs/2107.09443' },
+    { yr: '2022', title: 'Unsupervised learning of geometrical features from images by explicit group actions enforcement', venue: 'NeurIPS 2022 — NeurReps Workshop (OpenReview)', tag: 'PEER-REVIEWED', href: 'https://openreview.net/forum?id=sEn61s0M1hy' },
+    { yr: '2021', title: 'Physics-Informed Machine Learning Simulator for Wildfire Propagation', venue: 'AAAI-MLPS 2021 Spring Symposium · CEUR-WS Vol-2964 · first author · also at JuliaCon 2021', tag: 'PEER-REVIEWED', href: 'https://ceur-ws.org/Vol-2964/article_171.pdf' },
+    { yr: '2021', title: 'NeuralPDE: Automating Physics-Informed Neural Networks (PINNs) with Error Approximations', venue: 'arXiv:2107.09443 — preprint · SciML collaboration (MIT JuliaLab), 14 authors', tag: 'PREPRINT', href: 'https://arxiv.org/abs/2107.09443' },
   ],
   bookH: 'Book chapter',
   book: '"AI: Prometheus or Pandora of the 21st century?" — in Il modello Partecipativo nella moda (ed. F. Aimi, Franco Angeli, 2025).',
@@ -61,15 +63,15 @@ const t = lang === 'it' ? {
   galleryH: 'Science you can watch',
   gallerySub: 'Computational physics published open source on my GitHub — simulations you can run, not just watch.',
   figs: [
-    { src: '/assets/img/peregrine_soliton.gif', cap: 'Peregrine soliton — nonlinear Schrödinger equation' },
-    { src: '/assets/img/akhmediev_breather.gif', cap: 'Akhmediev breather — modulational instability' },
-    { src: '/assets/img/xpoint_animation.gif', cap: 'X-point reconnection — relativistic Boris algorithm, C++' },
-    { src: '/assets/img/dipole_animation.gif', cap: 'Magnetic dipole trapping — miniature radiation belts' },
+    { src: '/assets/video/peregrine_soliton.mp4', cap: 'Peregrine soliton — nonlinear Schrödinger equation' },
+    { src: '/assets/video/akhmediev_breather.mp4', cap: 'Akhmediev breather — modulational instability' },
+    { src: '/assets/video/xpoint_animation.mp4', cap: 'X-point reconnection — relativistic Boris algorithm, C++' },
+    { src: '/assets/video/dipole_animation.mp4', cap: 'Magnetic dipole trapping — miniature radiation belts' },
   ],
   reposNote: 'Source code:',
   papersCta: 'Independent papers ▸',
-  leonardoH: 'First prize — Leonardo space hackathon, 2026',
-  leonardo: 'With the winning team: ground-antenna fault prediction from 3.8M telemetry rows (ROC-AUC 0.968, 44/44 faults anticipated with ~21h warning) and SGP4 orbital propagation of 100+ satellites reimplemented as a custom CUDA kernel.',
+  leonardoH: 'First prize — Leonardo "Space Edition" hackathon, 2026',
+  leonardo: 'Overall winners. The main track was a concept for a global-coverage Quantum Key Distribution satellite constellation; in the code-centric side challenges the team delivered ground-antenna fault prediction from 3.8M telemetry rows (ROC-AUC 0.968, 44/44 faults anticipated with ~21h warning) and reimplemented SGP4 orbital propagation of 100+ satellites as a custom CUDA kernel.',
 };
 ---
 <Base lang={lang} title={t.title} description={t.desc} path={`${p}/science/`}>
@@ -83,6 +85,7 @@ const t = lang === 'it' ? {
     <div class="section-head reveal">
       <span class="eyebrow">SCI//PUBLISHED</span>
       <h2>{t.pubsH}</h2>
+      <p class="sub">{t.pubsSub}</p>
     </div>
     <div class="timeline reveal">
       {t.pubs.map((pub: any) => (
@@ -90,6 +93,7 @@ const t = lang === 'it' ? {
           <span class="yr">{pub.yr}</span>
           <span class="what">
             <b><a href={pub.href} rel="noopener" style="color:var(--ink)">{pub.title}</a></b>
+            {pub.tag && <span class={`tag ${pub.tag === 'PEER-REVIEWED' ? 'ok' : ''}`} style="margin-left:8px; vertical-align:middle;">{pub.tag}</span>}
             <span> — {pub.venue}</span>
           </span>
         </div>
@@ -98,9 +102,6 @@ const t = lang === 'it' ? {
         <span class="yr">2025</span>
         <span class="what"><b>{t.bookH}</b><span> — {t.book}</span></span>
       </div>
-    </div>
-    <div class="reveal" style="margin-top:20px;">
-      <a class="btn" href={`${p}/papers/`}>{t.papersCta}</a>
     </div>
   </section>
 
@@ -133,7 +134,9 @@ const t = lang === 'it' ? {
     <div class="grid-2">
       {t.figs.map((f: any) => (
         <figure class="figure reveal" style="margin:0">
-          <img src={f.src} alt={f.cap} loading="lazy" />
+          <video autoplay loop muted playsinline preload="metadata" aria-label={f.cap}>
+            <source src={f.src} type="video/mp4" />
+          </video>
           <figcaption>{f.cap}</figcaption>
         </figure>
       ))}

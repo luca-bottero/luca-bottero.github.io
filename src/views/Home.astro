@@ -18,7 +18,7 @@ const t = lang === 'it' ? {
   ctaRecord: 'Il percorso ▸',
   stats: [
     { v: '10', suffix: '+', l: 'Sistemi consegnati' },
-    { v: '3', suffix: '', l: 'Paper peer-reviewed' },
+    { v: '2', suffix: '', l: 'Paper peer-reviewed' },
     { v: '1º', l: 'Premio Leonardo 2026', literal: true },
     { v: '2018', l: 'ML dal', literal: true },
   ],
@@ -30,7 +30,7 @@ const t = lang === 'it' ? {
     { href: `${p}/systems/eigenlab/`, k: 'NOUSYNTH // EIGENLAB', h: 'Un laboratorio autonomo', d: 'Gli assegni una domanda e un budget: pianifica, sperimenta, si auto-critica e sintetizza — osservabile in diretta, con limiti di spesa rigidi.' },
   ],
   nsHead: 'Il marchio NouSynth',
-  nsSub: 'Nous (mente) + synthesis. Tecnologie di AI per un impatto concreto — un framework proprietario per agenti, sette sistemi costruiti sopra, clienti reali in produzione.',
+  nsSub: 'Nous (mente) + synthesis. Tecnologie di AI per un impatto concreto — un framework proprietario per agenti, un intero ecosistema di sistemi costruiti sopra, clienti reali in produzione.',
   nsCta: 'La dottrina ▸',
   sciHead: 'La scienza, da guardare',
   sciSub: 'Fisica computazionale pubblicata in open source: solitoni quantistici, particelle relativistiche in campi elettromagnetici, modelli generativi per la fisica su reticolo.',
@@ -44,7 +44,7 @@ const t = lang === 'it' ? {
     { yr: '2021', b: 'Paper AAAI-MLPS + talk a JuliaCon', s: ' — simulatore di incendi physics-informed, con il JuliaLab del MIT' },
     { yr: '2022', b: 'Paper al workshop NeurIPS (NeurReps)', s: ' · tesi su dati ALICE/CERN con ML' },
     { yr: '2025', b: 'Docente Sole 24 Ore Business School', s: ' — "Faculty d\'Eccellenza" · capitolo di libro pubblicato' },
-    { yr: '2026', b: 'Primo premio, hackathon spaziale Leonardo', s: ' · EigenLab, sciame di droni e ABACUS operativi' },
+    { yr: '2026', b: 'Primo premio, hackathon Leonardo "Space Edition"', s: ' · EigenLab, sciame di droni e ABACUS operativi' },
   ],
   recordCta: 'Percorso completo ▸',
   contactHead: 'Costruiamo qualcosa.',
@@ -62,7 +62,7 @@ const t = lang === 'it' ? {
   ctaRecord: 'The record ▸',
   stats: [
     { v: '10', suffix: '+', l: 'Systems shipped' },
-    { v: '3', suffix: '', l: 'Peer-reviewed papers' },
+    { v: '2', suffix: '', l: 'Peer-reviewed papers' },
     { v: '1st', l: 'Leonardo prize 2026', literal: true },
     { v: '2018', l: 'ML since', literal: true },
   ],
@@ -74,7 +74,7 @@ const t = lang === 'it' ? {
     { href: `${p}/systems/eigenlab/`, k: 'NOUSYNTH // EIGENLAB', h: 'An autonomous laboratory', d: 'Assign it a question and a budget: it plans, experiments, critiques itself and synthesizes — observable live, under hard spending limits.' },
   ],
   nsHead: 'The NouSynth mark',
-  nsSub: 'Nous (mind) + synthesis. AI technologies for practical impact — one proprietary agent framework, seven systems built on it, real clients in production.',
+  nsSub: 'Nous (mind) + synthesis. AI technologies for practical impact — one proprietary agent framework, a whole ecosystem of systems built on it, real clients in production.',
   nsCta: 'The doctrine ▸',
   sciHead: 'Science you can watch',
   sciSub: 'Computational physics published open source: quantum solitons, relativistic particles in electromagnetic fields, generative models for lattice physics.',
@@ -88,7 +88,7 @@ const t = lang === 'it' ? {
     { yr: '2021', b: 'AAAI-MLPS paper + JuliaCon talk', s: ' — physics-informed wildfire simulator, with MIT JuliaLab' },
     { yr: '2022', b: 'NeurIPS workshop paper (NeurReps)', s: ' · thesis on ALICE/CERN data with ML' },
     { yr: '2025', b: 'Lecturer, Sole 24 Ore Business School', s: ' — "Faculty d\'Eccellenza" · book chapter published' },
-    { yr: '2026', b: 'First prize, Leonardo space hackathon', s: ' · EigenLab, drone swarm and ABACUS operational' },
+    { yr: '2026', b: 'First prize, Leonardo "Space Edition" hackathon', s: ' · EigenLab, drone swarm and ABACUS operational' },
   ],
   recordCta: 'Full record ▸',
   contactHead: "Let's build something.",
@@ -116,7 +116,7 @@ const t = lang === 'it' ? {
           <div class="stat">
             {s.literal
               ? <div class="v">{s.v}</div>
-              : <div class="v"><span data-count={s.v} data-suffix={s.suffix}>0</span></div>}
+              : <div class="v"><span data-count={s.v} data-suffix={s.suffix}>{s.v}{s.suffix}</span></div>}
             <div class="l">{s.l}</div>
           </div>
         ))}
@@ -165,11 +165,15 @@ const t = lang === 'it' ? {
     </div>
     <div class="grid-2">
       <figure class="figure reveal" style="margin:0">
-        <img src="/assets/img/peregrine_soliton.gif" alt={t.fig1} loading="lazy" />
+        <video autoplay loop muted playsinline preload="metadata" aria-label={t.fig1}>
+          <source src="/assets/video/peregrine_soliton.mp4" type="video/mp4" />
+        </video>
         <figcaption>{t.fig1}</figcaption>
       </figure>
       <figure class="figure reveal" style="margin:0">
-        <img src="/assets/img/xpoint_animation.gif" alt={t.fig2} loading="lazy" />
+        <video autoplay loop muted playsinline preload="metadata" aria-label={t.fig2}>
+          <source src="/assets/video/xpoint_animation.mp4" type="video/mp4" />
+        </video>
         <figcaption>{t.fig2}</figcaption>
       </figure>
     </div>

@@ -43,8 +43,8 @@ We ignore particle-generated fields and particle–particle interactions, and co
 
 The full C++ implementation — Boris pusher plus an RK4 comparison, validated against analytical solutions with convergence analysis — is open source, organized as a set of reproducible experiments: gyration, E×B drift, magnetic dipole trapping, magnetic bottles, X-point reconnection.
 
-![Charged particle trajectories near an X-point magnetic reconnection region](/assets/img/xpoint_animation.gif)
+<video autoplay loop muted playsinline preload="metadata" aria-label="Charged particle trajectories near an X-point magnetic reconnection region"><source src="/assets/video/xpoint_animation.mp4" type="video/mp4" /></video>
 
-![Particle trapped in a magnetic dipole field — a miniature radiation belt](/assets/img/dipole_animation.gif)
+<video autoplay loop muted playsinline preload="metadata" aria-label="Particle trapped in a magnetic dipole field — a miniature radiation belt"><source src="/assets/video/dipole_animation.mp4" type="video/mp4" /></video>
 
 Code, experiments and the full write-up: [ChargedParticleSimulator on GitHub](https://github.com/luca-bottero/ChargedParticleSimulator).

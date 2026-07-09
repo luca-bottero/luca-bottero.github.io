@@ -43,8 +43,8 @@ Ignoriamo i campi generati dalle particelle e le interazioni particella-particel
 
 L'implementazione C++ completa — integratore di Boris più un confronto RK4, validata contro soluzioni analitiche con analisi di convergenza — è open source, organizzata come una serie di esperimenti riproducibili: girazione, deriva E×B, intrappolamento in dipolo magnetico, bottiglie magnetiche, riconnessione a punto X.
 
-![Traiettorie di particelle cariche vicino a una regione di riconnessione magnetica a punto X](/assets/img/xpoint_animation.gif)
+<video autoplay loop muted playsinline preload="metadata" aria-label="Traiettorie di particelle cariche vicino a una regione di riconnessione magnetica a punto X"><source src="/assets/video/xpoint_animation.mp4" type="video/mp4" /></video>
 
-![Particella intrappolata in un campo di dipolo magnetico — una fascia di radiazione in miniatura](/assets/img/dipole_animation.gif)
+<video autoplay loop muted playsinline preload="metadata" aria-label="Particella intrappolata in un campo di dipolo magnetico — una fascia di radiazione in miniatura"><source src="/assets/video/dipole_animation.mp4" type="video/mp4" /></video>
 
 Codice, esperimenti e relazione completa: [ChargedParticleSimulator su GitHub](https://github.com/luca-bottero/ChargedParticleSimulator).

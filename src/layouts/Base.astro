@@ -9,13 +9,47 @@ interface Props {
   /** Current path in EN form for lang=en pages, IT form for lang=it pages (with trailing slash). */
   path: string;
   katex?: boolean;
+  ogType?: 'website' | 'article';
+  /** ISO date; emitted as article:published_time when ogType === 'article'. */
+  publishedTime?: string;
+  /** Extra JSON-LD node(s) merged into the page's schema.org graph (e.g. a BlogPosting). */
+  jsonLd?: Record<string, any> | Record<string, any>[];
 }
 
-const { lang, title, description, path, katex = false } = Astro.props;
+const { lang, title, description, path, katex = false, ogType = 'website', publishedTime, jsonLd } = Astro.props;
 const t = ui[lang];
 const p = langPrefix(lang);
 const twin = twinPath(lang, path);
 const canonical = new URL(path, Astro.site).href;
+const twinHref = new URL(twin, Astro.site).href;
+const enHref = lang === 'en' ? canonical : twinHref;
+const ogImage = new URL('/assets/img/og-card.jpg', Astro.site).href;
+const siteHref = new URL('/', Astro.site).href;
+
+// schema.org graph: a sitewide Person + WebSite, plus any page-specific node.
+const person = {
+  '@type': 'Person',
+  '@id': `${siteHref}#person`,
+  name: 'Luca Bottero',
+  url: siteHref,
+  image: new URL('/assets/img/portrait.jpg', Astro.site).href,
+  jobTitle: lang === 'it' ? 'Fisico teorico, fondatore di NouSynth' : 'Theoretical physicist, founder of NouSynth',
+  sameAs: [
+    'https://github.com/luca-bottero',
+    'https://www.linkedin.com/in/luca-bottero-physics',
+    'https://nousynth.com',
+  ],
+};
+const website = {
+  '@type': 'WebSite',
+  '@id': `${siteHref}#website`,
+  url: siteHref,
+  name: 'Luca Bottero // NouSynth',
+  inLanguage: lang,
+  publisher: { '@id': `${siteHref}#person` },
+};
+const graph = [person, website, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+const jsonLdData = { '@context': 'https://schema.org', '@graph': graph };
 
 const navItems = [
   { href: `${p}/nousynth/`, label: t.nav.nousynth },
@@ -33,17 +67,30 @@ const current = (href: string) => path !== `${p}/` && path.startsWith(href) ? 'p
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang={lang === 'en' ? 'it' : 'en'} href={new URL(twin, Astro.site).href} />
+    <link rel="alternate" hreflang={lang} href={canonical} />
+    <link rel="alternate" hreflang={lang === 'en' ? 'it' : 'en'} href={twinHref} />
+    <link rel="alternate" hreflang="x-default" href={enHref} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Luca Bottero — Blog" href={`${p}/rss.xml`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/assets/img/portrait.jpg', Astro.site).href} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:site_name" content="Luca Bottero // NouSynth" />
+    <meta property="og:locale" content={lang === 'it' ? 'it_IT' : 'en_US'} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {ogType === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLdData)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -75,7 +122,8 @@ const current = (href: string) => path !== `${p}/` && path.startsWith(href) ? 'p
         <button class="menu-btn" aria-expanded="false" aria-controls="nav">{t.misc.menu}</button>
         <nav class="nav-links" id="nav">
           {navItems.map((item) => <a href={item.href} aria-current={current(item.href)}>{item.label}</a>)}
-          <a class="lang-toggle" href={twin} data-lang-toggle data-set-lang={lang === 'en' ? 'it' : 'en'}>
+          <a class="lang-toggle" href={twin} data-lang-toggle data-set-lang={lang === 'en' ? 'it' : 'en'}
+            aria-label={lang === 'en' ? 'Switch to Italiano' : 'Passa a English'}>
             {lang === 'en' ? 'IT' : 'EN'} ↺
           </a>
         </nav>
@@ -93,7 +141,6 @@ const current = (href: string) => path !== `${p}/` && path.startsWith(href) ? 'p
             <h4>{t.footer.explore}</h4>
             <ul>
               {navItems.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-              <li><a href={`${p}/papers/`}>{t.footer.papers}</a></li>
             </ul>
           </div>
           <div>
@@ -161,6 +208,7 @@ const current = (href: string) => path !== `${p}/` && path.startsWith(href) ? 'p
               var suffix = el.getAttribute('data-suffix') || '';
               var n = parseInt(target, 10);
               if (isNaN(n)) return;
+              el.textContent = '0' + suffix;
               var start = performance.now();
               var dur = 1100;
               function tick(now) {

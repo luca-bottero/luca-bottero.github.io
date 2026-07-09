@@ -57,7 +57,10 @@ const t = lang === 'it' ? {
         <p style="color:#c7ccd4; font-size:16.5px;">{t.bio3}</p>
       </div>
       <figure class="figure" style="margin:0;">
-        <img src="/assets/img/portrait.jpg" alt="Luca Bottero" loading="lazy" />
+        <picture>
+          <source srcset="/assets/img/portrait.webp" type="image/webp" />
+          <img src="/assets/img/portrait.jpg" alt="Luca Bottero" width="700" height="800" loading="lazy" />
+        </picture>
         <figcaption class="tnum">{t.photoCap}</figcaption>
       </figure>
     </div>
