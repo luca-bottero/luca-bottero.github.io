@@ -8,7 +8,7 @@ export const ui = {
       science: 'Science',
       lab: 'Lab',
       record: 'Record',
-      blog: 'Blog',
+      blog: 'Writing',
       about: 'About',
     },
     footer: {
@@ -36,7 +36,7 @@ export const ui = {
       science: 'Scienza',
       lab: 'Lab',
       record: 'Percorso',
-      blog: 'Blog',
+      blog: 'Scritti',
       about: 'Chi sono',
     },
     footer: {

@@ -18,7 +18,8 @@ const t = lang === 'it' ? {
     { h: 'In produzione, non in demo', d: 'Sistemi multi-tenant con autenticazione, monitoraggio dei costi e deploy in cloud. La ricerca diventa prodotto o non conta.' },
   ],
   ecosystemHead: 'Un framework, un ecosistema',
-  ecosystemSub: 'Ogni sistema qui sotto condivide lo stesso nucleo proprietario. Questa è la prova architetturale: non esperimenti sparsi, ma un ecosistema coerente. Qui i più rappresentativi.',
+  ecosystemSub: 'Ogni sistema condivide lo stesso nucleo proprietario — questa è la prova architetturale: non esperimenti sparsi, ma un ecosistema coerente. Le schede complete stanno nella pagina Sistemi.',
+  systemsCta: 'Catalogo completo, con i dettagli ▸',
   systems: [
     { href: `${p}/systems/aida/`, name: 'AIDA', d: 'Progettazione meccanica parametrica guidata dall\'AI: descrivilo, parametrizzalo, consegnalo.', tag: 'PUNTA' },
     { href: `${p}/systems/drone-swarm/`, name: 'Drone Swarm', d: 'Sciame marittimo auto-organizzato, comandato in linguaggio naturale.', tag: 'PUNTA' },
@@ -45,7 +46,8 @@ const t = lang === 'it' ? {
     { h: 'In production, not in demos', d: 'Multi-tenant systems with authentication, cost metering and cloud deployment. Research becomes product or it does not count.' },
   ],
   ecosystemHead: 'One framework, one ecosystem',
-  ecosystemSub: 'Every system below shares the same proprietary core. That is the architectural proof: not scattered experiments — one coherent ecosystem. The most representative ones are shown here.',
+  ecosystemSub: 'Every system shares the same proprietary core — that is the architectural proof: not scattered experiments, one coherent ecosystem. The full write-ups live on the Systems page.',
+  systemsCta: 'Full catalog, with details ▸',
   systems: [
     { href: `${p}/systems/aida/`, name: 'AIDA', d: 'AI-powered parametric mechanical design: describe it, parametrize it, ship it.', tag: 'FLAGSHIP' },
     { href: `${p}/systems/drone-swarm/`, name: 'Drone Swarm', d: 'Self-organizing maritime swarm, commanded in plain language.', tag: 'FLAGSHIP' },
@@ -97,14 +99,16 @@ const t = lang === 'it' ? {
     </div>
     <div class="grid-3">
       {t.systems.map((s: any) => (
-        <a class="card reveal" href={s.href}>
-          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px;">
+        <a class="card reveal" href={s.href} style="padding:16px 18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
             <h3>{s.name}</h3>
             <span class={`tag ${s.tag === 'FLAGSHIP' || s.tag === 'PUNTA' ? 'blue' : ''}`}>{s.tag}</span>
           </div>
-          <p>{s.d}</p>
         </a>
       ))}
+    </div>
+    <div class="reveal" style="margin-top:22px;">
+      <a class="btn" href={`${p}/systems/`}>{t.systemsCta}</a>
     </div>
   </section>
 

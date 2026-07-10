@@ -11,18 +11,18 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === lang))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const t = lang === 'it' ? {
-  title: 'Blog — Luca Bottero',
-  desc: 'Saggi e note tecniche: intelligenza artificiale, fisica, sistemi autonomi e ciò che le macchine pensanti significano per noi.',
+  title: 'Scritti — Luca Bottero',
+  desc: 'Saggi e note tecniche selezionati: intelligenza artificiale, fisica, sistemi autonomi e ciò che le macchine pensanti significano per noi.',
   eyebrow: 'TX//LOG',
-  h1: 'Blog',
-  sub: 'Saggi e note tecniche. Le opinioni vivono qui — i fatti stanno nel Percorso.',
+  h1: 'Scritti',
+  sub: 'Saggi e note tecniche — pochi, scelti. Non un flusso quotidiano: ogni pezzo esce quando ha qualcosa da dire. Le opinioni vivono qui, i fatti stanno nel Percorso.',
   read: 'Leggi ▸',
 } : {
-  title: 'Blog — Luca Bottero',
-  desc: 'Essays and technical notes: artificial intelligence, physics, autonomous systems, and what thinking machines mean for us.',
+  title: 'Writing — Luca Bottero',
+  desc: 'Selected essays and technical notes: artificial intelligence, physics, autonomous systems, and what thinking machines mean for us.',
   eyebrow: 'TX//LOG',
-  h1: 'Blog',
-  sub: 'Essays and technical notes. Opinions live here — the facts live in the Record.',
+  h1: 'Writing',
+  sub: 'Essays and technical notes — few, chosen. Not a daily feed: each piece ships when it has something to say. Opinions live here; the facts live in the Record.',
   read: 'Read ▸',
 };
 
